@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, PopoverController, AlertController, Alert } from 'ionic-angular';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { IonicPage, NavController, NavParams, MenuController, Events } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { PartidaProvider } from "../../providers/partida/partida";
 /**
@@ -16,67 +15,62 @@ import { PartidaProvider } from "../../providers/partida/partida";
   templateUrl: 'record.html',
 })
 export class RecordPage {
-  showCard: any;
-  showClientControl: any;
-  partidas: boolean = false;
-  cartas: boolean = true;
-  owner: any;
+  records = { partidas: false,
+    mejorestablas: false,
+    ganadores: false,
+    chorros: false,
+    cuatroesquinas: false,
+    centritos: false,
+    perdedores: false};
   game_id: any;
   players: any;
   user:any;
   email: any;
   cosas:any = {full:0,blast:0,quarter:0, center:0, total:0};
+
+  public barChartOptions:any = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+  public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartType:string = 'bar';
+  public barChartLegend:boolean = true;
+ 
+  public barChartData:any[] = [
+    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
+    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
+  ];
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private menu: MenuController,
-    private popoverCtrl: PopoverController,
-    private alertCtrl: AlertController,
-    private afd: AngularFireDatabase,
-    private pp: PartidaProvider) {
+    private pp: PartidaProvider,
+    public events: Events) {
     this.user = firebase.auth().currentUser;
     pp.getGamesWhereWin(this.user.email).then(mi_codigo_mi_variable => {
       this.cosas = mi_codigo_mi_variable;
     });
+
+    events.subscribe('openRecord',(records) =>{
+      this.records = records;
+    });
   }
 
   ionViewWillEnter(){
+    this.records = { partidas: true,
+      mejorestablas: false,
+      ganadores: false,
+      chorros: false,
+      cuatroesquinas: false,
+      centritos: false,
+      perdedores: false};
     this.menu.enable(true,'menurecords');
+    
   }
 
   ionViewWillLeave(){
     this.menu.enable(false,'menurecords');
   }
 
-  modal(myEvent){
-    console.log("game" + this.game_id)
-    this.pp.getlastgame("abraham-alvarado@hotmail.com").then( ab => {
-      this.owner = ab;
-      console.log(this.owner);
-
-
-    });
-
-    let alert = this.alertCtrl.create({
-      title: 'PARTIDA FINALIZADA',
-      message: 'El juego a terminado:<br/> <br/>Chorro:  '+ (this.owner.control.wins.blast) +'<br/>Cuatro Esquinas:  '+ (this.owner.control.wins.quarter) +'<br/>Centrito:  '+ (this.owner.control.wins.center) +'<br/>Llenas:  '+ (this.owner.control.wins.full) +'',
-      buttons: [
-        {
-          text: 'Salir Sala',
-          role: 'cancel',
-          handler: () => {
-            //console.log(this.pp.getGame());
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Volver a Jugar',
-          handler: () => {
-            console.log('Buy clicked');
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
 }

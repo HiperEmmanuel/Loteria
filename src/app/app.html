@@ -6,25 +6,25 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item>
+      <button ion-item (click)="openRecord('partidas')">
         <ion-icon name="happy"></ion-icon> &nbsp; Partidas
       </button>
-      <button ion-item>
+      <button ion-item (click)="openRecord('mejorestablas')">
         <ion-icon name="star"></ion-icon> &nbsp; Mejores tablas
       </button>
-      <button ion-item>
+      <button ion-item (click)="openRecord('ganadores')">
         <ion-icon name="trophy"></ion-icon> &nbsp; Los ganadores
       </button>
-      <button ion-item>
+      <button ion-item (click)="openRecord('chorros')">
         <ion-icon name="resize"></ion-icon>  &nbsp; Chorreros
       </button>
-      <button ion-item>
+      <button ion-item (click)="openRecord('cuatroesquinas')">
         <ion-icon name="qr-scanner"></ion-icon> &nbsp; 4 esquineros
       </button>
-      <button ion-item>
+      <button ion-item (click)="openRecord('centritos')">
         <ion-icon name="podium"></ion-icon> &nbsp; Centritos
       </button>
-      <button ion-item>
+      <button ion-item (click)="openRecord('perdedores')">
         <ion-icon ios="ios-egg-outline" md="md-egg"></ion-icon> &nbsp; Los perdedores
       </button>
     </ion-list>
