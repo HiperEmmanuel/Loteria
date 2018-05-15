@@ -1,0 +1,245 @@
+@charset "UTF-8";
+.consola {
+  background-color: rgba(163, 167, 161, 0.671);
+  position: absolute;
+  height: 10rem;
+  width: 27rem;
+  overflow: auto;
+  -webkit-transform: translateX(-10rem);
+          transform: translateX(-10rem);
+  border-radius: 10px; }
+
+.Baraja {
+  height: 11rem;
+  margin-bottom: 1rem; }
+
+.Carta {
+  background-color: beige;
+  margin-top: none;
+  width: 5.5rem;
+  height: auto;
+  padding: 0%;
+  width: 25%; }
+
+.tabla {
+  border: 5px;
+  border-color: beige;
+  color: beige;
+  background: transparent;
+  margin-bottom: -40%; }
+
+.tabla img {
+  width: 100%;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  height: auto; }
+
+.grid-estilo {
+  border: 1.2px solid darkgrey;
+  background-color: beige;
+  width: 90%;
+  -webkit-box-shadow: 0px 5px 10px beige;
+          box-shadow: 0px 5px 10px beige; }
+
+.estilo-ficha {
+  z-index: 4000;
+  top: -70px;
+  position: relative;
+  -webkit-transition: all .3s;
+  transition: all .3s; }
+
+.estilo-ficha.tamaño {
+  width: 36px;
+  height: auto; }
+
+.baraja-diseño {
+  border: 2px solid white;
+  border-radius: 7%;
+  -webkit-box-shadow: 0px 1px 11px black;
+          box-shadow: 0px 1px 11px black;
+  max-width: 110%; }
+
+.Fondo {
+  background-image: url(../assets/imgs/mesas/f1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+.estilo-boton {
+  top: -118%;
+  height: 111%;
+  border-radius: 5%;
+  width: 198%;
+  left: -5%;
+  background-image: url(../assets/cards/0.png);
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+.icono-play {
+  width: 100%;
+  font-size: 4.2em; }
+
+.conectado {
+  color: #14c9d6;
+  display: box;
+  display: center; }
+
+.si {
+  background-color: transparent;
+  border-radius: 6%;
+  -moz-margin-bottom: -60px;
+  margin-bottom: -60px; }
+
+.animacion-imagen {
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  border: 1.4px solid black;
+  -webkit-box-shadow: 0px 5px 9px black;
+          box-shadow: 0px 5px 9px black; }
+
+.Notificacion {
+  -webkit-transform: translateY(12px);
+          transform: translateY(12px);
+  position: relative;
+  z-index: 1;
+  background-color: crimson; }
+
+@media (max-width: 340px) {
+  .estilo-boton {
+    top: -5%;
+    height: 100%;
+    width: 216%;
+    left: -35%; }
+
+  .icono-play {
+    width: 100%;
+    font-size: 3.2em; }
+
+  .consola {
+    width: 150%;
+    margin-left: 25%; }
+
+  .baraja-diseño {
+    top: -5%;
+    max-width: 220%;
+    margin-left: -23%; } }
+@media (min-width: 340px) {
+  .grid-estilo {
+    margin-top: 7%;
+    width: 85%; }
+
+  .baraja-diseño {
+    max-width: 200%; }
+
+  .estilo-ficha.tamaño {
+    width: auto;
+    height: 50px; }
+
+  .estilo-ficha {
+    width: auto;
+    height: 30px; }
+
+  .estilo-boton {
+    top: -5%;
+    height: 112%;
+    width: 200%; }
+
+  .consola {
+    width: 150%;
+    margin-left: 14%; }
+
+  .icono-play {
+    width: 100%;
+    font-size: 3.2em; } }
+@media (min-width: 420px) {
+  .grid-estilo {
+    margin-top: 7%;
+    width: 75%; }
+
+  .estilo-boton {
+    top: -5%;
+    height: 130%;
+    width: 200%;
+    left: -30%; }
+
+  .baraja-diseño {
+    top: -5%;
+    height: 130%;
+    max-width: 200%;
+    margin-left: -23%; }
+
+  .consola {
+    width: 150%;
+    margin-left: 0%;
+    top: 15%; } }
+@media (min-width: 460px) {
+  .grid-estilo {
+    width: 70%; } }
+@media (min-width: 660px) {
+  .grid-estilo {
+    width: 45%;
+    margin-top: 0%; }
+
+  .estilo-boton {
+    top: -5%;
+    height: 214%;
+    width: 252%; }
+
+  .consola {
+    width: 92%;
+    margin-left: -20%;
+    top: 10%; }
+
+  .baraja-diseño {
+    height: 230%;
+    max-width: 250%; } }
+@media (min-width: 870px) {
+  .grid-estilo {
+    width: 35%;
+    margin-top: 2%; }
+
+  .consola {
+    width: 100%;
+    margin-left: -30%;
+    top: 10%; }
+
+  .baraja-diseño {
+    height: 230%;
+    max-width: 250%; } }
+@media (min-width: 990px) {
+  .baraja-diseño {
+    height: 230%;
+    max-width: 450%; }
+
+  .estilo-boton {
+    top: -5%;
+    height: 255%;
+    width: 440%; } }
+@media (min-width: 1200px) {
+  .grid-estilo {
+    width: 25%;
+    margin-top: 4%; }
+
+  .Carta {
+    margin-top: 2%; }
+
+  .estilo-ficha {
+    top: -90px; }
+
+  .estilo-ficha.tamaño {
+    width: auto;
+    height: 60px; }
+
+  .si {
+    margin-bottom: -80px; }
+
+  .estilo-boton {
+    top: 5%;
+    height: 380%;
+    width: 462%; }
+
+  .baraja-diseño {
+    height: 330%;
+    max-width: 450%; } }
+
+/*# sourceMappingURL=juego.css.map */
