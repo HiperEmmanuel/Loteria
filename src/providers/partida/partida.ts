@@ -18,6 +18,7 @@ export class PartidaProvider {
   id: any;
   public game:any;
   constructor(public afd: AngularFireDatabase) { }
+
   get_room_by_id(player){
     let promise = new Promise((resolve, reject) => {
       firebase.database().ref('/room/').orderByKey().equalTo(player).on('value', (snap) => {
@@ -42,9 +43,11 @@ export class PartidaProvider {
     })
     return promise
   }
-
   crearPartida(name){
     this.afd.list('/game/').push(name);
+  }
+  updateGame(game){
+    this.afd.list('/game/').update(game['id'], game);
   }
   crear_request_check(obj){
     this.afd.list('/request_check_room/').push(obj);
@@ -383,9 +386,10 @@ export class PartidaProvider {
   }
 
   joinGame(player){
-
+    let promise = new Promise((resolve, reject)=>{
     let z=true;
     let gg = true;
+    try{
     firebase.database().ref('/room/').orderByChild('id_game').equalTo(player.id_game).on('value', (snapshot) => {
       this.db.ref('/game/').orderByKey().equalTo(player.id_game).on('value', result =>{
         let item = result.val();
@@ -403,9 +407,13 @@ export class PartidaProvider {
               z = false;
               player['last'] = 1;
               this.afd.list('/room/').push(player);
+              resolve(player);
           }
       });
     });
+    }catch(err){reject(err)}
+    })
+  return promise
   }
 
   getPlayers(id_game){

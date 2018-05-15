@@ -292,6 +292,7 @@ export class JuegoPage {
         if(this.indice<53){
           this.indice2 ++;
         }else{
+          console.log(this.game.status);
           this.game.status = "F";
           this.stopObs();
         }
