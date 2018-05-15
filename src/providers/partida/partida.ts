@@ -576,7 +576,6 @@ export class PartidaProvider {
                 lsGames.full++;
               }if(item.control.wins.blast == user){
                 lsGames.blast++;
-                console.log('ddddddddddd');
               }if(item.control.wins.quarter == user){
                 lsGames.quarter++;
               }if(item.control.wins.center == user){
