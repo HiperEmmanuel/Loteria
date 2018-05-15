@@ -5,6 +5,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Loteria } from './app.component';
 import { NgxErrorsModule } from  '@ultimate/ngxerrors';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { ChartsModule } from 'ng2-charts';
 // Paginas
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -74,7 +75,8 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig.fire),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    NgxErrorsModule
+    NgxErrorsModule,
+    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -28,12 +28,13 @@ export class ElegirCartaPage {
   public user: any;
   public player: any;
   public room: any;
+  public game: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private view: ViewController, private tableService: TableProvider, public partidaService: PartidaProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ElegirCartaPage');
+    //console.log('ionViewDidLoad ElegirCartaPage');
     this.user= firebase.auth().currentUser;
     this.player=this.user.email;
     this.getTables();
@@ -42,6 +43,22 @@ export class ElegirCartaPage {
   getTables(){
     this.tableService.getTables().then(response =>{
       this.tables = response;
+      this.partidaService.getlastroom(this.player).then(room =>{
+        this.partidaService.getGame(room['id_game']).then(game =>{
+          let currentGame: any = [];
+          currentGame = game;
+          let tables = currentGame.control.tables;
+          let count = Object.keys(tables).length;
+          for(var i = 0; i < count; i++){
+            var key = tables[i].toString();
+            if(key >= "-1"){
+              delete this.tables[key];
+            }
+          }
+        })
+      }).catch(err =>{
+        console.log(err);
+      })
     }).catch(err =>{
       console.error(err);
     })
@@ -49,15 +66,13 @@ export class ElegirCartaPage {
   
   elegir(id$){
     this.view.dismiss(id$);
-    console.log('arriba de last game Function');
     this.partidaService.getlastroom(this.player).then(response =>{
-      console.log(response);
       let player = response;
       this.partidaService.updateUserTable(player, id$);
+      this.partidaService.updateGameTables(response, id$)
     }).catch(err =>{
       console.error(err);
     })
-    console.log(' aver el ID' + id$)
   }
 
 }

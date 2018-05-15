@@ -35,7 +35,6 @@ export class UnirsePage {
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UnirsePage');
     this.refreshGames();
 
   }
@@ -50,7 +49,6 @@ export class UnirsePage {
 
   refreshGames(){
     this.listGame = [];
-    console.log('refrescando');
     this.partidaService.getPublicGames()
     .then(response =>{
       this.listGame = response;
@@ -75,19 +73,18 @@ export class UnirsePage {
       status: 'A',
       timestamp: timestamp
     }
-    console.log('En unirse' + id);
     this.partidaService.getGame(id).then(response =>{
       let currentGame: any = [];
       currentGame = response
       if(currentGame.control.players < currentGame.settings.players){
-        this.partidaService.joinGame(player);
-        const modalElegirCarta = this.modal.create(ElegirCartaPage,{carta:null });
-        modalElegirCarta.onDidDismiss(data => {
-          this.navCtrl.push(JuegoPage,{tabla:data, game: id});
+        this.partidaService.joinGame(player).then(response =>{
+          const modalElegirCarta = this.modal.create(ElegirCartaPage,{carta:null });
+          modalElegirCarta.onDidDismiss(data => {
+            this.navCtrl.push(JuegoPage,{tabla:data, game: response['id_game']});
+          });
+          modalElegirCarta.present();
         });
-        modalElegirCarta.present();
       }else{
-
           let toast = this.toastCtrl.create({
             message: "La sala está llena",
             duration: 1500,

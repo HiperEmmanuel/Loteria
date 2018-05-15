@@ -18,6 +18,7 @@ export class PartidaProvider {
   id: any;
   public game:any;
   constructor(public afd: AngularFireDatabase) { }
+
   get_room_by_id(player){
     let promise = new Promise((resolve, reject) => {
       firebase.database().ref('/room/').orderByKey().equalTo(player).on('value', (snap) => {
@@ -42,9 +43,11 @@ export class PartidaProvider {
     })
     return promise
   }
-
   crearPartida(name){
     this.afd.list('/game/').push(name);
+  }
+  updateGame(game){
+    this.afd.list('/game/').update(game['id'], game);
   }
   crear_request_check(obj){
     this.afd.list('/request_check_room/').push(obj);
@@ -383,9 +386,10 @@ export class PartidaProvider {
   }
 
   joinGame(player){
-
+    let promise = new Promise((resolve, reject)=>{
     let z=true;
     let gg = true;
+    try{
     firebase.database().ref('/room/').orderByChild('id_game').equalTo(player.id_game).on('value', (snapshot) => {
       this.db.ref('/game/').orderByKey().equalTo(player.id_game).on('value', result =>{
         let item = result.val();
@@ -403,9 +407,13 @@ export class PartidaProvider {
               z = false;
               player['last'] = 1;
               this.afd.list('/room/').push(player);
+              resolve(player);
           }
       });
     });
+    }catch(err){reject(err)}
+    })
+  return promise
   }
 
   getPlayers(id_game){
@@ -418,7 +426,6 @@ export class PartidaProvider {
           if(controlplayers == true){
             controlplayers = false;
           let games = snapshot.val();
-          //console.log(games);
           let ids = Object.keys(games);
           let count = Object.keys(games).length;
           for(var i=0; i< count; i++){
@@ -426,7 +433,6 @@ export class PartidaProvider {
             let item = snapshot.child(key).val();
 
             if(item.status == 'A'){
-              //console.log(item.last);
                 game = {
                 id: key,
                 id_game: id_game,
@@ -449,6 +455,7 @@ export class PartidaProvider {
     })
     return promise;
   }
+
   getCarta(id_game){
     let promise = new Promise((resolve, reject) =>{
       let controlgame = true;
@@ -461,7 +468,6 @@ export class PartidaProvider {
           let id = Object.keys(item);
           let gg = result.child(id[0]).val();
           gg.id = id[0];
-          //console.log(gg);
           resolve(gg)
           }
         }catch(err){
@@ -472,6 +478,7 @@ export class PartidaProvider {
     })
     return promise;
   }
+
   getGame(id_game){
     let promise = new Promise((resolve, reject) =>{
       let controlgame = true;
@@ -495,31 +502,23 @@ export class PartidaProvider {
     return promise;
   }
 
-
-  updateTablesGame(id_game, id_table){
-
-      let control = true;
-      this.db.ref('/game/').orderByKey().equalTo(id_game).on('value', result => {
-        try{
-          if(control == true){
-          control = false;
-          let item = result.val();
-          let id = Object.keys(item);
-          let game = result.child(id[0]).val();
-          game.id = id[0];
-
-          game.control.tables.push(id_table);
-
-          this.afd.list('/game/').update(id[0], game);
-          control = false;
-
-          }
-        }catch(e){console.log(e)}
-
-      });
+  updateGameTables(game, id_table){
+    let currentGame: any = [];
+    currentGame = game;
+    let control = true;
+    firebase.database().ref('/game/').orderByKey().equalTo(currentGame.id_game).on('value', (snap) => {
+      try {
+      if(control == true){
+        control = false;
+        let updateGame = snap.child(currentGame.id_game).val();
+        updateGame.control.tables.push(id_table);
+        this.afd.list('/game/').update(currentGame.id_game, updateGame);
+      }
+      }catch(err){
+        console.log(err);
+      }
+    });
   }
-
-
 
   getPublicGames(){
     let promise = new Promise((resolve, reject) => {
@@ -682,9 +681,6 @@ export class PartidaProvider {
           if(item.status == 'A'){
             if(z == true){
               z=false;
-
-            //console.log(room);
-            //console.log(key);
             this.afd.list('/room/').update(key, room);
             }
           }

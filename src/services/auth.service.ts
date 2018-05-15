@@ -30,13 +30,11 @@ export class AuthService {
 	}
 
 	signInWithEmail(credentials) {
-		console.log('Sign in with email');
 		return this.afAuth.auth.signInWithEmailAndPassword(credentials.email,
 			 credentials.password);
 	}
 
 	signInWithGoogle() {
-		console.log('Sign in with google');
 		return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
 }
 

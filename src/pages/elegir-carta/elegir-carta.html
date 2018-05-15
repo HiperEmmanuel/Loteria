@@ -19,7 +19,8 @@
       
       <ion-slide *ngFor="let item of tables; let i = index;">
         <h3>Carta {{i+1}}</h3>
-        <ion-grid class="grid-estilo-2" (click)="elegir(i)">
+        <p *ngIf="!item">NO DISPONIBLE</p>
+        <ion-grid *ngIf="item" class="grid-estilo-2" (click)="elegir(i)">
             <ion-row justify-content-center *ngFor="let ite of item; let j = index;" >
               <div *ngFor="let it of ite; let l = index;" class="Carta">
                 <button class="tabla" >
