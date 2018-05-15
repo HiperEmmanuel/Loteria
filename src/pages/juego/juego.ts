@@ -383,15 +383,22 @@ export class JuegoPage {
         })
         ///////////////////////////////////////////////
         }else if(this.user.email != this.game.owner && this.game.status == "I"){
-          this.intervalito = 1;
-          this.indice = this.game.currentCard;
-          this.partidaService.getCarta(this.game.random[this.indice]).then(zz=>{
-            let ff:any=zz;
-            //console.log(ff.name);
-            this.tts.speak(
-              {text:ff.name,
-              locale:'es-MX'
-          }).then(() => console.log('Success')).catch((reason: any) => console.log(reason));        });
+
+          if(this.indice<53){
+            this.intervalito = 1;
+            this.indice = this.game.currentCard;
+            this.partidaService.getCarta(this.game.random[this.indice]).then(zz=>{
+              let ff:any=zz;
+              //console.log(ff.name);
+              this.tts.speak(
+                {text:ff.name,
+                locale:'es-MX'
+            }).then(() => console.log('Success')).catch((reason: any) => console.log(reason));        });
+          }else{
+            console.log(this.game.status);
+            this.game.status = "F";
+            this.stopObs();
+          }
         }
         this.partidaService.get_my_room(this.user.email).then(xa => {
           let roomy:any = xa;
