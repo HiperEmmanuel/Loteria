@@ -35,7 +35,6 @@ export class UnirsePage {
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UnirsePage');
     this.refreshGames();
 
   }
@@ -50,7 +49,6 @@ export class UnirsePage {
 
   refreshGames(){
     this.listGame = [];
-    console.log('refrescando');
     this.partidaService.getPublicGames()
     .then(response =>{
       this.listGame = response;
@@ -75,7 +73,6 @@ export class UnirsePage {
       status: 'A',
       timestamp: timestamp
     }
-    console.log('En unirse' + id);
     this.partidaService.getGame(id).then(response =>{
       let currentGame: any = [];
       currentGame = response
