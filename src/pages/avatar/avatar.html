@@ -15,22 +15,12 @@
 
 <ion-content padding>
 <ul>
-    <div data-val="1" (click)="seleccionar('1.png')">
-      <img src="assets/imgs/perfil/1.png">
-      <p text-capitalize>1 <!--Aqui va el nombre de la carta--></p>
-    </div>
-    <div data-val="2" (click)="seleccionar('2.png')">
-      <img src="assets/imgs/perfil/2.png">
-      <p text-capitalize>2
-        <!--Aqui va el nombre de la carta-->
-      </p>
-    </div>
-    <div data-val="3" (click)="seleccionar('3.png')">
-      <img src="assets/imgs/perfil/3.png">
-      <p text-capitalize>3
-        <!--Aqui va el nombre de la carta-->
-      </p>
-    </div>
-  </ul>
+  <div *ngFor="let item of arr_images; let i = index;">
+      <div data-val="i" (click)="seleccionar(i+'.png')">
+          <img src="assets/imgs/perfil/{{i}}.png">
+          <p text-capitalize>{{item.name}} <!--Aqui va el nombre de la carta</p>-->
+        </div>
+  </div>
+    </ul>
   <!-- La idea de este boton es que eliminen el input text de arriba y que funcione con este boton :) -->
 </ion-content>
