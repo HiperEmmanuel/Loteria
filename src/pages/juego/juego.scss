@@ -1,7 +1,15 @@
 page-juego {
     
 }
-
+.consola{
+    background-color: rgba(163, 167, 161, 0.671);
+    position: absolute;
+    height: 10rem;
+    width: 27rem;
+    overflow: auto;
+    transform: translateX(-10rem);
+    border-radius: 10px;
+}
 .Baraja{
     //background-color: darkblue;
     height: 11rem;
@@ -91,7 +99,7 @@ page-juego {
 }
 
 .conectado{
-    color:rgb(0, 161, 126);
+    color:rgb(20, 201, 214);
     display: box;
     display: center;
 }

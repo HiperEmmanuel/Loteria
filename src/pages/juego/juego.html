@@ -44,8 +44,16 @@
         </button>
       </div>
     </ion-col>
-
-   
+    <ion-col>
+      <div class="consola" no-padding>
+        &nbsp; Eventos: <br>
+        <!-- Tambien agreguen eventos de "{{apodo}}se desconectó", "{{apodo}} hizo chorro con {{carta}}" y "El juego comienza en...{{tiempo.restante}}"-->
+        <div *ngFor="let item of players" class="conectado" style="">
+          <p>Se unió: {{item.player}}</p>
+        </div>
+      </div>
+    </ion-col>
+  
   </ion-row>
 
 <ion-row>
@@ -63,19 +71,11 @@
   </ion-grid>
 
   </ion-row>
-<ion-col>
-  <div col-12 no-padding col-md-2 col-lg-1>
-    <div>
-      <div *ngFor="let item of players" class="conectado" style="">
-        <p>{{item.player}}</p>
-      </div>
-    </div>
-  </div>
-</ion-col>
+
 </ion-grid>
 
 <ion-fab right bottom>
-  <ion-badge item-end class="Notificacion">1</ion-badge>
+  <ion-badge item-end class="Notificacion">0</ion-badge>
   <button ion-fab color="primary" (click)="abrirChat()"><ion-icon name="chatboxes"></ion-icon></button>
 </ion-fab>
 
