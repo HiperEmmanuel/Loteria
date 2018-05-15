@@ -9,6 +9,7 @@ import * as firebase from 'firebase';
 */
 @Injectable()
 export class PerfilProvider {
+  private db = firebase.database();
   constructor(public afd: AngularFireDatabase) {
     console.log('Hello PerfilProvider Provider');
   }
@@ -48,6 +49,20 @@ export class PerfilProvider {
   callback(pf);
 });
 }
-   
+
+  getImgs(){
+    let promise = new Promise((resolve, reject) =>{
+      this.db.ref('/imgs_perfiles').on('value', (snapshot) =>{
+        try{
+          let images = snapshot.val();
+          console.log(images);
+          resolve(images);
+        }catch(err){
+          reject(err);
+        }
+      })
+    })
+    return promise
+  }
    
 }

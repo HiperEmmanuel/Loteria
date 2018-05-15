@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { PerfilProvider } from '../../providers/perfil/perfil';
 
 
 /**
@@ -15,8 +17,9 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'avatar.html',
 })
 export class AvatarPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public view: ViewController) {
+  arr_images:any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public view: ViewController,private perfilProvider: PerfilProvider,
+    public afDB: AngularFireDatabase) {
   }
   seleccionar(id){
     
@@ -25,6 +28,14 @@ export class AvatarPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad AvatarPage');
+    this.getImages();
   }
+  getImages(){
+    this.perfilProvider.getImgs().then(value=>{
+      console.log(value[1].id);
+      this.arr_images=value;
+    });
+  }
+  
 
 }
