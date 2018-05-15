@@ -205,7 +205,7 @@ export class JuegoPage {
     //this.showCard.unsubscribe('games');
     this.gettingrooms.unsubscribe();
     this.partidaService.leaveGame(this.user);
-    console.log('en onDestroy');
+ 
   }
   salir(){
     if(this.subControl == true){
@@ -225,7 +225,7 @@ export class JuegoPage {
   }
   /////////////////////////////////////////juego.html
   modal2(){
-    console.log("game" + this.game_id)
+    //console.log("game" + this.game_id)
     this.partidaService.getlastgame(this.owner).then( ab => {
       this.owner = ab;
       console.log(this.owner);
@@ -262,9 +262,9 @@ export class JuegoPage {
 
   iniciar(){
       this.tts.speak(
-        {text:'Se va y se corre perros csm alv',
+        {text:'Se va y se corre',
         locale:'es-MX'
-    }).then(() => console.log('Perros')).catch((reason: any) => console.log(reason));
+    }).then(() => console.log('Se va y se corre')).catch((reason: any) => console.log(reason));
 
     this.initCard = false;
     this.subControl = true;
@@ -277,10 +277,10 @@ export class JuegoPage {
           this.game.status = "I";
         this.partidaService.update_card(this.game_id, this.game);
         this.indice = this.game.currentCard;
-        console.log(this.indice)
+        //console.log(this.indice)
         this.partidaService.getCarta(this.game.random[this.indice]).then(zz=>{
           let ff:any=zz;
-          console.log(ff.name);
+          //console.log(ff.name);
           this.tts.speak(
             {text:ff.name,
             locale:'es-MX'
@@ -364,7 +364,7 @@ export class JuegoPage {
         }
         this.partidaService.getPlayers(this.game_id).then(hh => {
           let as:any = hh;
-          console.log(as);
+          //console.log(as);
           as.forEach(element => {
             this.tableService.getTables().then(response =>{
               this.search_card(this.game.random[this.indice], this.tables[this.tb], element.player);
@@ -380,7 +380,7 @@ export class JuegoPage {
           this.indice = this.game.currentCard;
           this.partidaService.getCarta(this.game.random[this.indice]).then(zz=>{
             let ff:any=zz;
-            console.log(ff.name);
+            //console.log(ff.name);
             this.tts.speak(
               {text:ff.name,
               locale:'es-MX'
@@ -469,12 +469,12 @@ is_kuatro(room){
       for (let i = 0; i < table[index].length; i++) {
         if (table[index][i] == carta) {
          let room;
-         console.log("carta:", carta);
-         console.log("otro:", table[index][i]);
-         console.log("otro:", user);
+         //console.log("carta:", carta);
+         //console.log("otro:", table[index][i]);
+         //console.log("otro:", user);
          this.partidaService.get_my_room(user).then(xa => {
            room = xa;
-           console.log(room);
+           //console.log(room);
            room.stats[index][i].showed = true;
            this.partidaService.update_stats(room);
           });

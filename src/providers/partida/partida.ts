@@ -418,7 +418,6 @@ export class PartidaProvider {
           if(controlplayers == true){
             controlplayers = false;
           let games = snapshot.val();
-          //console.log(games);
           let ids = Object.keys(games);
           let count = Object.keys(games).length;
           for(var i=0; i< count; i++){
@@ -426,7 +425,6 @@ export class PartidaProvider {
             let item = snapshot.child(key).val();
 
             if(item.status == 'A'){
-              //console.log(item.last);
                 game = {
                 id: key,
                 id_game: id_game,
@@ -449,6 +447,7 @@ export class PartidaProvider {
     })
     return promise;
   }
+
   getCarta(id_game){
     let promise = new Promise((resolve, reject) =>{
       let controlgame = true;
@@ -461,7 +460,6 @@ export class PartidaProvider {
           let id = Object.keys(item);
           let gg = result.child(id[0]).val();
           gg.id = id[0];
-          //console.log(gg);
           resolve(gg)
           }
         }catch(err){
@@ -472,6 +470,7 @@ export class PartidaProvider {
     })
     return promise;
   }
+
   getGame(id_game){
     let promise = new Promise((resolve, reject) =>{
       let controlgame = true;
@@ -495,31 +494,23 @@ export class PartidaProvider {
     return promise;
   }
 
-
-  updateTablesGame(id_game, id_table){
-
-      let control = true;
-      this.db.ref('/game/').orderByKey().equalTo(id_game).on('value', result => {
-        try{
-          if(control == true){
-          control = false;
-          let item = result.val();
-          let id = Object.keys(item);
-          let game = result.child(id[0]).val();
-          game.id = id[0];
-
-          game.control.tables.push(id_table);
-
-          this.afd.list('/game/').update(id[0], game);
-          control = false;
-
-          }
-        }catch(e){console.log(e)}
-
-      });
+  updateGameTables(game, id_table){
+    let currentGame: any = [];
+    currentGame = game;
+    let control = true;
+    firebase.database().ref('/game/').orderByKey().equalTo(currentGame.id_game).on('value', (snap) => {
+      try {
+      if(control == true){
+        control = false;
+        let updateGame = snap.child(currentGame.id_game).val();
+        updateGame.control.tables.push(id_table);
+        this.afd.list('/game/').update(currentGame.id_game, updateGame);
+      }
+      }catch(err){
+        console.log(err);
+      }
+    });
   }
-
-
 
   getPublicGames(){
     let promise = new Promise((resolve, reject) => {
@@ -576,7 +567,6 @@ export class PartidaProvider {
                 lsGames.full++;
               }if(item.control.wins.blast == user){
                 lsGames.blast++;
-                console.log('ddddddddddd');
               }if(item.control.wins.quarter == user){
                 lsGames.quarter++;
               }if(item.control.wins.center == user){
@@ -683,9 +673,6 @@ export class PartidaProvider {
           if(item.status == 'A'){
             if(z == true){
               z=false;
-
-            //console.log(room);
-            //console.log(key);
             this.afd.list('/room/').update(key, room);
             }
           }
