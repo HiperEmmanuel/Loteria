@@ -55,7 +55,7 @@ page-juego {
 }
 .estilo-ficha{
     z-index: 4000;
-    top:-80px;
+    top:-70px;
     position:relative;
     transition: all .3s;
    
@@ -72,7 +72,7 @@ page-juego {
     border-radius: 7%;
     box-shadow: 0px 1px 11px black;
     max-width: 110%;
-   
+
 }
 
 
@@ -87,10 +87,12 @@ page-juego {
     border-radius: 5%;
     width: 198%;
     left: -5%;
-    background-color: black;
-    opacity: 0.5;
 
-
+    //background-color: black;
+    //opacity: 0.5;
+    background-image: url(../assets/cards/0.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .icono-play{
@@ -126,14 +128,26 @@ page-juego {
 
 @media (max-width:340px){
     .estilo-boton{
-        top: -111%;
-    height: 104%;
-    width: 114%;
+        top: -5%;
+        height: 100%;
+        width: 216%;
+        left: -35%;
     }
     .icono-play{
         width:100%;
         font-size: 3.2em;
     }
+    .consola{
+        width: 150%;
+        margin-left: 25%;
+    }
+    .baraja-diseño{
+        top: -5%;
+        //height: 130%;
+        max-width: 220%;
+        margin-left: -23%;
+    }
+
 }
 @media (min-width:340px){
     .grid-estilo{
@@ -141,7 +155,7 @@ page-juego {
         width: 85%;
     }
     .baraja-diseño{
-        max-width: 110%;
+        max-width: 200%;
     }
     .estilo-ficha.tamaño {
         width: auto;
@@ -152,9 +166,13 @@ page-juego {
 
     }
     .estilo-boton{
-        top: -133%;
-        height: 126%;
-        width: 115%;
+        top: -5%;
+        height: 112%;
+        width: 200%;
+    }
+    .consola{
+        width: 150%;
+        margin-left: 14%;
     }
     .icono-play{
         width:100%;
@@ -163,14 +181,26 @@ page-juego {
 }
 @media (min-width:420px){
     .grid-estilo{
-        margin-top: 12%;
+        margin-top: 7%;
         width: 75%;
     }
     .estilo-boton{
-        top: -153%;
-        height: 146%;
-        width: 115%;
-}
+        top: -5%;
+        height: 130%;
+        width: 200%;
+        left: -30%;
+    }
+    .baraja-diseño{
+        top: -5%;
+        height: 130%;
+        max-width: 200%;
+        margin-left: -23%;
+    }
+    .consola{
+        width:150%;
+        margin-left: 0%;
+        top:15%;
+    }
 }
  @media (min-width:460px){
      .grid-estilo{
@@ -180,35 +210,54 @@ page-juego {
  @media (min-width:660px){
     .grid-estilo{
         width: 45%;
-        margin-top: -4%;
+        margin-top: 0%;
     }
     .estilo-boton{
-      
-        top: -194%;
-        height: 187%;
-        width: 113%;
+        top: -5%;
+        height: 170%;
+        width: 200%;
     }
+    .consola{
+        width: 92%;
+        margin-left: -20%;
+        top: 10%;
+    }
+    .baraja-diseño{
+        height: 230%;
+        max-width: 250%;
+     }
 }
 @media (min-width:870px){
     .grid-estilo{
         width:  35%;
-        margin-top: -2%;
+        margin-top: 2%;
     }
+    .consola{
+        width: 100%;
+        margin-left: -30%;
+        top: 10%;
+    }
+    .baraja-diseño{
+        height: 230%;
+        max-width: 250%;
+    }
+
 }
 @media (min-width:990px){
     .baraja-diseño{
-        max-width: 300%;
+        height: 230%;
+        max-width: 450%;
     }
     .estilo-boton{
-        top: -307%;
-        height: 300%;
-        width: 261%;
+        top: -5%;
+        height: 230%;
+        width: 400%;
     }
 }
 @media (min-width:1200px){
     .grid-estilo{
         width: 25%;
-        margin-top: -1%;
+        margin-top: 4%;
     }
     .Carta{
         margin-top: 2%;
@@ -224,9 +273,13 @@ page-juego {
         margin-bottom:-80px;
     }
     .estilo-boton{
-        top: -310%;
-        height: 303%;
-        width: 185%;
+        top: 5%;
+        height: 352%;
+        width: 425%;
+    }
+    .baraja-diseño{
+        height: 330%;
+        max-width: 450%;
     }
 }
 
