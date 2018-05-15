@@ -207,7 +207,8 @@ export class JuegoPage {
     this.partidaService.leaveGame(this.user);
  
   }
-  salir(){
+
+  stopObs(): void {
     if(this.subControl == true){
       this.sub.unsubscribe();
       this.subControl = false;
@@ -218,8 +219,10 @@ export class JuegoPage {
       this.showCard.unsubscribe();
 
     }
-    console.log(this.user);
+  }
 
+  salir(){
+    this.stopObs();
     this.partidaService.leaveGame(this.user);
     this.navCtrl.setRoot(HomePage);
   }
@@ -288,6 +291,9 @@ export class JuegoPage {
 
         if(this.indice<53){
           this.indice2 ++;
+        }else{
+          this.game.status = "F";
+          this.stopObs();
         }
         this.nativeAudio.play((this.game.random[this.indice]).toString(), () => { this.nativeAudio.unload(this.game.random[this.indice]).toString()});
 

@@ -37,8 +37,8 @@
   <ion-row>
     <ion-col>
       <div class="Baraja" col-3 no-padding col-md-2 col-lg-1>
-        <img *ngIf="initCard == true" class="baraja-diseño" src="assets/cards/0.png">
-        <img  *ngIf="initCard == false" class="baraja-diseño" src="assets/cards/{{game.random[indice]}}.png">
+        <img *ngIf="initCard == true || indice == 53" class="baraja-diseño" src="assets/cards/0.png">
+        <img  *ngIf="initCard == false && indice < 53" class="baraja-diseño" src="assets/cards/{{game.random[indice]}}.png">
         <button ion-button round class="estilo-boton" color="verde" (click)="iniciar()" *ngIf="owner==email && game.status=='w'">
             <ion-icon class="icono-play" name="play"></ion-icon>
         </button>
