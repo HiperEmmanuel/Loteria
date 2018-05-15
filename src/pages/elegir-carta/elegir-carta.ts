@@ -34,7 +34,7 @@ export class ElegirCartaPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ElegirCartaPage');
+    //console.log('ionViewDidLoad ElegirCartaPage');
     this.user= firebase.auth().currentUser;
     this.player=this.user.email;
     this.getTables();

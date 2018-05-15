@@ -39,7 +39,7 @@ export class CrearPartidaPage {
     */
     this.perfilService.getPerfil((this.user.email),(result) => {
       if(result!=null)this.perfil =result;
-      console.log(this.perfil.Apodo);
+      //console.log(this.perfil.Apodo);
       this.title = this.perfil.Apodo;
     });
     this.updatePriceValues();
