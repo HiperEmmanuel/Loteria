@@ -145,14 +145,8 @@ export class PartidaProvider {
           for(var i=0; i< count; i++){
             let key = ids[i];
             let item = snapshot.child(key).val();
-            if(item.status == true){
-                game = {
-                game_id:item.game_id,
-                player_room: item.player_room,
-                status: item.status
-              }
-              lsGames.push(game);
-            }
+            console.log(item);
+            lsGames.push(item);
           }
           }
           resolve(lsGames);

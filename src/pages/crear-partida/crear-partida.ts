@@ -25,7 +25,7 @@ export class CrearPartidaPage {
   i:any;
   email:any;
   public player: any;
-  newGame = {title: '', description: null, timestamp: 0, owner: '', type: '', status:'', settings: {},random:{}, currentCard: 0, control:{players: 1,wins:{full:false, blast:false, center: false,quarter:false}, tables:{0:-1}, values: {} }};
+  newGame = {title: '', description: null, timestamp: 0, owner: '', type: '', status:'', settings: {},random:{}, currentCard: 0, control:{players: 1,wins:{full:'', blast:'', center: '',quarter:''}, tables:{0:-1}, values: {} }};
   settings = {players:0,pricecard: 0, cardtimer:0, full:false, blast:false, quarters:false, middle:false};
   values= {fullvalue:0,blastvalue:0,quartervalue:0,middlevalue:0};
 
@@ -47,7 +47,7 @@ export class CrearPartidaPage {
   title:any= "";
   description:any = null;
   timestamp:any;
-  pricecard: any = 2; 
+  pricecard: any = 2;
   players: any = 5;
   cardtimer:any="3";
   full:any=true;
@@ -146,7 +146,7 @@ export class CrearPartidaPage {
     }).catch(err =>{
       console.error(err);
     })
-    
+
   }
 
   ionViewDidLoad() {
@@ -158,7 +158,7 @@ export class CrearPartidaPage {
     this.blastvalue = Math.round(this.pricecard * this.players  * (this.porcblast* 0.01));
     this.quartersvalue = Math.round(this.pricecard * this.players  * (this.porcquarters* 0.01));
     this.middlevalue = Math.round(this.pricecard * this.players  * (this.porcmiddle* 0.01));
-    
+
   }
 
   updatePorc(juego){

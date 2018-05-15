@@ -205,7 +205,7 @@ export class JuegoPage {
     //this.showCard.unsubscribe('games');
     this.gettingrooms.unsubscribe();
     this.partidaService.leaveGame(this.user);
- 
+
   }
 
   stopObs(): void {
@@ -271,13 +271,18 @@ export class JuegoPage {
 
     this.initCard = false;
     this.subControl = true;
+    let eraunamamada = true;
     this.sub = Observable.interval(1000*this.intervalito).subscribe((val) => {
       this.partidaService.getGame(this.game_id).then( aa => {
-        this.game = aa;
+        if (eraunamamada && this.user.email != this.game.owner){
+          eraunamamada = false;
+          this.game = aa;
+        }
         if (this.user.email == this.game.owner) {
           if (this.putoelkelolea){
           this.game.currentCard = this.indice2;
           this.game.status = "I";
+          console.log(this.game)
         this.partidaService.update_card(this.game_id, this.game);
         this.indice = this.game.currentCard;
         //console.log(this.indice)
@@ -316,7 +321,7 @@ export class JuegoPage {
             });
         });
         /////////////////////////////////////////////7
-        if (this.game.control.wins.full == false){
+        if (this.game.control.wins.full == ''){
           this.partidaService.get_request_full(this.game_id).then( gg => {
             let gf:any = gg;
             if (gf.length>0){
@@ -324,26 +329,34 @@ export class JuegoPage {
               this.partidaService.get_room_by_id(gf.player_room).then(
                 ff => {
                   let ag:any = ff;
-                  this.game.control.stats.full = ag.player;
+                  this.game.control.wins.full = ag.player;
                 }
               )
             }
           })
+        }else{
+          this.modal2();
+          console.log(this.game.status);
+          this.game.status = "F";
+          this.stopObs();
         }
-        if (this.game.control.wins.blast == false){
+        if (this.game.control.wins.blast == ''){
           this.partidaService.get_request_blast(this.game_id).then( gg => {
             let gf:any = gg;
+            console.log('esto es igualque arriba?',gf);
             if (gf.length>0){
               gf = gf[0];
               this.partidaService.get_room_by_id(gf.player_room).then(
                 ff => {
                   let ag:any = ff;
-                this.game.control.stats.blast = ag.player;
+                  console.log(ag);
+                this.game.control.wins.blast = ag.player;
+                console.log(this.game.control);
               }
             )}
           })
         }
-        if (this.game.control.wins.quarter == false){
+        if (this.game.control.wins.quarter == ''){
           this.partidaService.get_request_square(this.game_id).then( gg => {
             let gf:any = gg;
             if (gf.length>0){
@@ -351,12 +364,12 @@ export class JuegoPage {
               this.partidaService.get_room_by_id(gf.player_room).then(
                 ff => {
                   let ag:any = ff;
-                this.game.control.stats.quarter = ag.player;
+                this.game.control.wins.quarter = ag.player;
               }
             )}
           })
         }
-        if (this.game.control.wins.center == false){
+        if (this.game.control.wins.center == ''){
           this.partidaService.get_request_center(this.game_id).then( gg => {
             let gf:any = gg;
             if (gf.length>0){
@@ -364,7 +377,7 @@ export class JuegoPage {
               this.partidaService.get_room_by_id(gf.player_room).then(
                 ff => {
                   let ag:any = ff;
-                this.game.control.stats = ag.player;
+                this.game.control.wins.center = ag.player;
               }
             )}
           })
@@ -394,17 +407,14 @@ export class JuegoPage {
                 {text:ff.name,
                 locale:'es-MX'
             }).then(() => console.log('Success')).catch((reason: any) => console.log(reason));        });
-          }else{
-            console.log(this.game.status);
-            this.game.status = "F";
-            this.stopObs();
           }
         }
+        console.log('legeal')
         this.partidaService.get_my_room(this.user.email).then(xa => {
           let roomy:any = xa;
           if (this.s_full){
           this.is_full(roomy);
-          this.modal2();}
+        }
           if (this.s_blast)
           this.is_blast(roomy)
           if (this.s_square)
@@ -418,6 +428,7 @@ export class JuegoPage {
 
 is_full(room){
   let a = room.stats;
+  console.log('plox here?');
   if (
     a[0][0].marked == true &&
     a[0][1].marked == true &&
@@ -439,10 +450,10 @@ is_full(room){
     let req = this.room_request_full;
     req.game_id = this.game_id;
     req.player_room = room.id;
-
+    console.log('llega aqui?');
     this.partidaService.crear_request_full(req);
-    this.s_full = false;
   }
+  this.s_full = false;
 }
 is_blast(room){
   let a = room.stats;
