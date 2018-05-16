@@ -39,9 +39,10 @@
       <div class="Baraja" col-3 no-padding col-md-2 col-lg-1>
 
         <!--<img *ngIf="initCard == true || indice == 53" class="baraja-diseño" src="assets/cards/0.png">-->
-        
-        <img  *ngIf="initCard == false && indice < 53" class="baraja-diseño" src="assets/cards/{{game.random[indice]}}.png">
-        <button ion-button round class="estilo-boton" color="verde"  (click)="iniciar()" *ngIf="owner==email && game.status=='w' && initCard == true || indice == 53">
+        <div #myElement>
+          <img  *ngIf="initCard == false && indice < 53" class="baraja-diseño" src="assets/cards/{{game.random[indice]}}.png">
+        </div>
+        <button ion-button round class="estilo-boton" color="verde"  (click)="iniciar();animateElem();" *ngIf="owner==email && game.status=='w' && initCard == true || indice == 53">
             <ion-icon class="icono-play" name="play"></ion-icon>
         </button> 
 
@@ -63,11 +64,13 @@
 
   <ion-grid class="grid-estilo">
       <ion-row justify-content-center  *ngFor="let ite of table; let j = index;" >
-        <div *ngFor="let it of ite; let l = index;" class="Carta">
-          <button class="tabla" [ngClass]="{si: estadoPositivo[j*4+l], no: !estadoPositivo[j*4+l]}" id="item{{it}}" (click)="card(j*4+l)">
+        <div  *ngFor="let it of ite; let l = index;" class="Carta">
+          <button class="tabla" [ngClass]="{si: estadoPositivo[j*4+l], no: !estadoPositivo[j*4+l]}" id="item{{it}}" (click)="card(j*4+l);animation.start({type: 'rubberBand', duration: '1000'});">
             <img src="assets/cards/{{it}}.png" class="animacion-imagen">
               <!--fichas-->
-            <img src="assets/imgs/fichas/ficha14.png" style="" *ngIf="estadoPositivo[j*4+l]" class="estilo-ficha tamaño">
+              <div animates #animation="animates">
+              <img src="assets/imgs/fichas/ficha14.png" style="" *ngIf="estadoPositivo[j*4+l]" class="estilo-ficha tamaño">
+              </div>    
           </button>
         </div>
       </ion-row>

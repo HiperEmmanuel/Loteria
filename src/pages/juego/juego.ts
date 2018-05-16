@@ -1,4 +1,4 @@
-import { Component, style } from '@angular/core';
+import { Component, style, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { ChatPage } from '../chat/chat';
 import { PartidaProvider } from '../../providers/partida/partida';
@@ -12,6 +12,9 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+
+import { AnimationService, AnimationBuilder } from 'css-animator';
+
 /**
  * Generated class for the JuegoPage page.
  *
@@ -25,6 +28,9 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
   templateUrl: 'juego.html',
 })
 export class JuegoPage {
+
+  @ViewChild('myElement') myElem;
+  private animator: AnimationBuilder;
 
   //texto: string =  "SI";
   estadoPositivo = [];
@@ -66,7 +72,9 @@ export class JuegoPage {
   public initCard: any = true;
   public putoelkelolea:any = true;
 
-  constructor(private tts: TextToSpeech,private alertCtrl: AlertController, public navCtrl: NavController,public partidaService: PartidaProvider, public navParams: NavParams, private modal: ModalController, private tableService: TableProvider, public afDB: AngularFireDatabase, private nativeAudio: NativeAudio) {
+  constructor(private tts: TextToSpeech,private alertCtrl: AlertController, public navCtrl: NavController,public partidaService: PartidaProvider, public navParams: NavParams, private modal: ModalController, private tableService: TableProvider, public afDB: AngularFireDatabase, private nativeAudio: NativeAudio,private animationService: AnimationService) {
+    this.animator = animationService.builder();
+
     this.game = {random: [0,0,0]}
     this.estadoPositivo[0] = false;
     this.estadoPositivo[1] = false;
@@ -91,7 +99,10 @@ export class JuegoPage {
       this.settings = currentGame.settings;
     })
   }
-
+  
+  animateElem() {
+    this.animator.setType('flipInX').show(this.myElem.nativeElement);
+  }
   ionViewWillLeave(){
     let elem = <HTMLElement>document.querySelector(".tabbar");
     if (elem != null) {
