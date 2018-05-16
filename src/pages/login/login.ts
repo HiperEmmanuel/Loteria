@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
 import { RegistroPage } from '../registro/registro';
+import { PerfilPage } from '../perfil/perfil';
 
 /**
  * Generated class for the LoginPage page.
@@ -60,6 +61,7 @@ export class LoginPage {
 
   signup(){
     const myModal = this.modal.create(RegistroPage);
+    myModal.onDidDismiss(()=> this.navCtrl.setRoot(PerfilPage) );
     myModal.present();
   }
 }
