@@ -274,7 +274,7 @@ export class JuegoPage {
     let eraunamamada = true;
     this.sub = Observable.interval(1000*this.intervalito).subscribe((val) => {
       this.partidaService.getGame(this.game_id).then( aa => {
-        if (eraunamamada && this.user.email != this.game.owner){
+        if (eraunamamada || this.user.email != this.game.owner){
           eraunamamada = false;
           this.game = aa;
         }
@@ -282,7 +282,6 @@ export class JuegoPage {
           if (this.putoelkelolea){
           this.game.currentCard = this.indice2;
           this.game.status = "I";
-          console.log(this.game)
         this.partidaService.update_card(this.game_id, this.game);
         this.indice = this.game.currentCard;
         //console.log(this.indice)
@@ -296,10 +295,6 @@ export class JuegoPage {
 
         if(this.indice<53){
           this.indice2 ++;
-        }else{
-          console.log(this.game.status);
-          this.game.status = "F";
-          this.stopObs();
         }
         this.nativeAudio.play((this.game.random[this.indice]).toString(), () => { this.nativeAudio.unload(this.game.random[this.indice]).toString()});
 
@@ -336,7 +331,6 @@ export class JuegoPage {
           })
         }else{
           this.modal2();
-          console.log(this.game.status);
           this.game.status = "F";
           this.stopObs();
         }
@@ -349,9 +343,7 @@ export class JuegoPage {
               this.partidaService.get_room_by_id(gf.player_room).then(
                 ff => {
                   let ag:any = ff;
-                  console.log(ag);
                 this.game.control.wins.blast = ag.player;
-                console.log(this.game.control);
               }
             )}
           })
@@ -409,7 +401,10 @@ export class JuegoPage {
             }).then(() => console.log('Success')).catch((reason: any) => console.log(reason));        });
           }
         }
-        console.log('legeal')
+        if (this.game.control.wins.full != ''){
+          this.modal2();
+          this.stopObs();
+        }
         this.partidaService.get_my_room(this.user.email).then(xa => {
           let roomy:any = xa;
           if (this.s_full){
@@ -428,29 +423,10 @@ export class JuegoPage {
 
 is_full(room){
   let a = room.stats;
-  console.log('plox here?');
-  if (
-    a[0][0].marked == true &&
-    a[0][1].marked == true &&
-    a[0][2].marked == true &&
-    a[0][3].marked == true &&
-    a[1][0].marked == true &&
-    a[1][1].marked == true &&
-    a[1][2].marked == true &&
-    a[1][3].marked == true &&
-    a[2][0].marked == true &&
-    a[2][1].marked == true &&
-    a[2][2].marked == true &&
-    a[2][3].marked == true &&
-    a[3][0].marked == true &&
-    a[3][1].marked == true &&
-    a[3][2].marked == true &&
-    a[3][3].marked == true
-  ){
+  if (a[0][0].marked == true && a[0][0].showed == true && a[0][1].marked == true && a[0][1].showed == true && a[0][2].marked == true && a[0][2].showed == true && a[0][3].marked == true && a[0][3].showed == true && a[1][0].marked == true && a[1][0].showed == true && a[1][1].marked == true && a[1][1].showed == true && a[1][2].marked == true && a[1][2].showed == true && a[1][3].marked == true && a[1][3].showed == true && a[2][0].marked == true && a[2][0].showed == true && a[2][1].marked == true && a[2][1].showed == true && a[2][2].marked == true && a[2][2].showed == true && a[2][3].marked == true && a[2][3].showed == true && a[3][0].marked == true && a[3][0].showed == true && a[3][1].marked == true && a[3][1].showed == true && a[3][2].marked == true && a[3][2].showed == true && a[3][3].marked == true && a[3][3].showed == true){
     let req = this.room_request_full;
     req.game_id = this.game_id;
     req.player_room = room.id;
-    console.log('llega aqui?');
     this.partidaService.crear_request_full(req);
   }
   this.s_full = false;
