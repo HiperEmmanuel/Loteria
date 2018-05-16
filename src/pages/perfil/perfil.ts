@@ -66,7 +66,7 @@ export class PerfilPage implements OnInit {
     });
 
     toast.onDidDismiss(() => {
-      this.navCtrl.setRoot(ConfigPage);
+      this.navCtrl.setRoot(HomePage);
       this.navCtrl.parent.select(0);
     });
 

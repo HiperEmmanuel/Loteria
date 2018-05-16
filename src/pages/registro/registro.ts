@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { AuthService } from '../../services/auth.service';
 import {PerfilProvider} from '../../providers/perfil/perfil';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HomePage } from '../home/home';
+import { PerfilPage } from '../perfil/perfil';
 import { TabsPage } from '../tabs/tabs';
 
 /**
@@ -46,7 +46,7 @@ export class RegistroPage {
 			password: data.password
 		};
 		this.auth.signUp(credentials).then(
-			() => this.navCtrl.setRoot(HomePage),
+			() => this.navCtrl.setRoot(PerfilPage),
 			error => this.signupError = error.message
 		);
 }
