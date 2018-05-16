@@ -96,6 +96,7 @@ export class JuegoPage {
     this.partidaService.getGame(this.game_id).then(response => {
       let currentGame: any = [];
       currentGame = response;
+      this.game = currentGame;
       this.settings = currentGame.settings;
     })
   }
@@ -295,6 +296,7 @@ export class JuegoPage {
           this.game.status = "I";
         this.partidaService.update_card(this.game_id, this.game);
         this.indice = this.game.currentCard;
+        //console.log(this.game.currentCard);
         //console.log(this.indice)
         this.partidaService.getCarta(this.game.random[this.indice]).then(zz=>{
           let ff:any=zz;
@@ -403,6 +405,7 @@ export class JuegoPage {
           if(this.indice<53){
             this.intervalito = 1;
             this.indice = this.game.currentCard;
+            //console.log(this.indice);
             this.partidaService.getCarta(this.game.random[this.indice]).then(zz=>{
               let ff:any=zz;
               //console.log(ff.name);
