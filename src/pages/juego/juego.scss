@@ -192,7 +192,7 @@ page-juego {
     }
     .baraja-diseño{
         top: -5%;
-        height: 130%;
+        height: auto;
         max-width: 200%;
         margin-left: -23%;
     }
@@ -223,7 +223,7 @@ page-juego {
         top: 10%;
     }
     .baraja-diseño{
-        height: 230%;
+        height: auto;
         max-width: 250%;
      }
 }
@@ -238,14 +238,14 @@ page-juego {
         top: 10%;
     }
     .baraja-diseño{
-        height: 230%;
+        height: auto;
         max-width: 250%;
     }
 
 }
 @media (min-width:990px){
     .baraja-diseño{
-        height: 230%;
+        height: auto;
         max-width: 450%;
     }
     .estilo-boton{

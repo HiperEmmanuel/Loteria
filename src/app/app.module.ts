@@ -6,6 +6,10 @@ import { Loteria } from './app.component';
 import { NgxErrorsModule } from  '@ultimate/ngxerrors';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { ChartsModule } from 'ng2-charts';
+//Animaciones
+
+import { AnimationService, AnimatesDirective } from 'css-animator';
+
 // Paginas
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -68,6 +72,7 @@ export const firebaseConfig = {
     PerfilPage,
     ChatPage,
     AvatarPage,
+    AnimatesDirective,
   ],
   imports: [
     FormsModule,
@@ -111,6 +116,7 @@ export const firebaseConfig = {
     NativeAudio,
     SocialSharing,
     TextToSpeech,
+    AnimationService,
   ]
 })
 export class AppModule {}
