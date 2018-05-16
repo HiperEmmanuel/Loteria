@@ -49,6 +49,7 @@ export class ElegirCartaPage {
   getTables(){
 
     this.gettingTables = this.afDB.list('/game/').valueChanges().subscribe(changes => { 
+      console.log('observando tablas')
       this.tableService.getTables().then(response =>{
         this.tables = response;
         this.partidaService.getlastroom(this.player).then(room =>{
