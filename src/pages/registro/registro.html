@@ -17,46 +17,57 @@
 </ion-header>
 
 
-<ion-content padding>
-  <form (ngSubmit)="signup()" [formGroup]="form">  
-    <!--<ion-item>
-      <ion-label stacked floating>
-        <ion-icon name="contact"></ion-icon> Nombre</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>-->
-
-    <ion-list>
-      <ion-item [ngClass]="{ invalid: emailErrors.hasError('*', ['touched']) }">
-        <ion-label stacked floating>
-          <ion-icon name="mail"></ion-icon>Correo Electrónico</ion-label>
-        <ion-input type="text" formControlName="email"></ion-input>
-    </ion-item>
-
-    <div ngxErrors="email" #emailErrors="ngxErrors">
-      <div [ngxError]="['email', 'required']" [when]="['touched']"><small>Ingrese un correo válido</small></div>
-    </div>
-
-    <ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched']) }">
-      <ion-label stacked floating>
-        <ion-icon name="lock"></ion-icon>Contraseña</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-
-    <div ngxErrors="password" #passwordErrors="ngxErrors">
-      <div [ngxError]="['minlength', 'required']" [when]="['touched']"><small>Mínimo 6 caracteres</small></div>
-    </div>
-
-    <!--<ion-item>
-      <ion-label stacked floating>
-        <ion-icon name="lock"></ion-icon> Repetir Contraseña</ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>-->
-
-  </ion-list>
-
-  <div padding>
-    <div class="form-error">{{signupError}}</div>
-    <button ion-button block full type="submit" [disabled]="!form.valid"> Registrar</button>
-  </div>
-  </form>
+<ion-content padding class="Registro">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-md-6 offset-md-3>
+        <form (ngSubmit)="signup()" [formGroup]="form">
+          <!--<ion-item>
+              <ion-label stacked floating>
+                <ion-icon name="contact"></ion-icon> Nombre</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>-->
+        
+          <ion-list>
+            <ion-item [ngClass]="{ invalid: emailErrors.hasError('*', ['touched']) }">
+              <ion-label stacked floating>
+                <ion-icon name="mail"></ion-icon>Correo Electrónico</ion-label>
+              <ion-input type="text" formControlName="email"></ion-input>
+            </ion-item>
+        
+            <div ngxErrors="email" #emailErrors="ngxErrors">
+              <div [ngxError]="['email', 'required']" [when]="['touched']">
+                <small>Ingrese un correo válido</small>
+              </div>
+            </div>
+        
+            <ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched']) }">
+              <ion-label stacked floating>
+                <ion-icon name="lock"></ion-icon>Contraseña</ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+        
+            <div ngxErrors="password" #passwordErrors="ngxErrors">
+              <div [ngxError]="['minlength', 'required']" [when]="['touched']">
+                <small>Mínimo 6 caracteres</small>
+              </div>
+            </div>
+        
+            <!--<ion-item>
+              <ion-label stacked floating>
+                <ion-icon name="lock"></ion-icon> Repetir Contraseña</ion-label>
+              <ion-input type="password"></ion-input>
+            </ion-item>-->
+        
+          </ion-list>
+        
+          <div padding>
+            <div class="form-error">{{signupError}}</div>
+            <button ion-button block full type="submit" [disabled]="!form.valid"> Registrar</button>
+          </div>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
 </ion-content>

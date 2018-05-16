@@ -35,7 +35,7 @@
               <ion-card-content>
                 
                 <ion-list-header *ngIf="auth.getEmail()" text-center color="info">
-                    {{auth.getEmail()}}
+                    Conectado como: {{auth.getEmail()}}
                 </ion-list-header>
                 
                 <button ion-button (click)='Login()' block round *ngIf="!auth.authenticated">Iniciar Sesión</button>
