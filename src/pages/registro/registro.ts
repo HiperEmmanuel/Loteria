@@ -46,7 +46,7 @@ export class RegistroPage {
 			password: data.password
 		};
 		this.auth.signUp(credentials).then(
-			() => this.navCtrl.setRoot(PerfilPage),
+			() => this.cerrarModal(),
 			error => this.signupError = error.message
 		);
 }
