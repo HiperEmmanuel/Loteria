@@ -18,13 +18,13 @@ export class Loteria {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.nativeAudio.preloadComplex('rolilla', 'assets/sounds/rolilla.mp3',0.3,1,0).then(this.onSuccessPreloading, this.onError);
+      this.nativeAudio.preloadComplex('patricio', 'assets/sounds/patricio.m4a',1,1,0).then(this.onSuccessPreloading, this.onError);
     });
   }
   onSuccessPreloading = (data) => {
     console.log('success preloading', data);
-    this.nativeAudio.play('rolilla').then(this.onSuccessPlaying, this.onError);
-    this.nativeAudio.loop('rolilla');
+    this.nativeAudio.play('patricio').then(this.onSuccessPlaying, this.onError);
+    this.nativeAudio.loop('patricio');
   }
 
   openRecord(record: string){
