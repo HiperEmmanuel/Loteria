@@ -20,89 +20,68 @@
 </ion-header>
 
   <ion-content>
-    <p>Partidas ganadas - {{cosas.full}}</p>
-    <p>Mejores tablas</p>
-    <p>Chorros - {{cosas.blast}}</p>
-    <p>4 esquinas - {{cosas.quarter}}</p>
-    <p>Centritos - {{cosas.center}}</p>
-    <p>Partidas totales - {{cosas.total}}</p>
-
-
-  <!-- Chart Partidas-->
-  <div style="display: block" *ngIf="records.partidas">
-    <h3> Partidas</h3>
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
+ <ion-grid>
+   <ion-row justify-content-center>
+     <ion-col col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3>
+        <!-- Chart Partidas-->
+        <div style="display: block" *ngIf="records.partidas">
+          <h3> Partidas</h3>
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
             [chartType]="barChartType"></canvas>
-  </div>
-
-  <!-- Chart Mejores Tablas-->
-  <div style="display: block" *ngIf="records.mejorestablas">
-    <h3> Mejores Tablas</h3>
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
+        </div>
+        
+        <!-- Chart Mejores Tablas-->
+        <div style="display: block" *ngIf="records.mejorestablas">
+          <h3> Mejores Tablas</h3>
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
             [chartType]="barChartType"></canvas>
-  </div>
-
-  <!-- Chart Ganadores-->
-  <div style="display: block" *ngIf="records.ganadores">
-    <h3> Ganadores</h3>
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
+        </div>
+        
+        <!-- Chart Ganadores-->
+        <div style="display: block" *ngIf="records.ganadores">
+          <h3> Ganadores</h3>
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
             [chartType]="barChartType"></canvas>
-  </div>
-
-  <!-- Chart Chorros-->
-  <div style="display: block" *ngIf="records.chorros">
-    <h3> Chorros</h3>
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
+        </div>
+        
+        <!-- Chart Chorros-->
+        <div style="display: block" *ngIf="records.chorros">
+          <h3> Chorros</h3>
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
             [chartType]="barChartType"></canvas>
-  </div>
-
-  <!-- Chart 4 Esquinas-->
-  <div style="display: block" *ngIf="records.cuatroesquinas">
-    <h3> 4 Esquinas</h3>
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
+        </div>
+        
+        <!-- Chart 4 Esquinas-->
+        <div style="display: block" *ngIf="records.cuatroesquinas">
+          <h3> 4 Esquinas</h3>
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
             [chartType]="barChartType"></canvas>
-  </div>
-
-  <!-- Chart Centritos-->
-  <div style="display: block" *ngIf="records.centritos">
-    <h3> Centritos</h3>
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
+        </div>
+        
+        <!-- Chart Centritos-->
+        <div style="display: block" *ngIf="records.centritos">
+          <h3> Centritos</h3>
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
             [chartType]="barChartType"></canvas>
-  </div>
-
-  <!-- Chart Perdedores-->
-  <div style="display: block" *ngIf="records.perdedores">
-    <h3> Perdedores</h3>
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
+        </div>
+        
+        <!-- Chart Perdedores-->
+        <div style="display: block" *ngIf="records.perdedores">
+          <h3> Perdedores</h3>
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
             [chartType]="barChartType"></canvas>
-  </div>
-
+        </div>
+     </ion-col>
+   </ion-row>
+   <ion-row justify-content-center>
+     <ion-col col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3>
+      <p>Partidas ganadas - {{cosas.full}}</p>
+      <p>Mejores tablas</p>
+      <p>Chorros - {{cosas.blast}}</p>
+      <p>4 esquinas - {{cosas.quarter}}</p>
+      <p>Centritos - {{cosas.center}}</p>
+      <p>Partidas totales - {{cosas.total}}</p>
+     </ion-col>
+   </ion-row>
+ </ion-grid>
   </ion-content>

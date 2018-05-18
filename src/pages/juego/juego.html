@@ -48,7 +48,7 @@
 
         <!--<img *ngIf="initCard == true || indice == 53" class="baraja-diseño" src="assets/cards/0.png">-->
         <div #myElement>
-          <img  *ngIf="initCard == false && indice < 53" class="baraja-diseño" src="assets/cards/{{game.random[indice]}}.png">
+          <img  *ngIf="initCard == false && indice < 53" class="baraja-diseño" src="assets/gif/{{game.random[indice]}}.gif">
         </div>
         <button ion-button round class="estilo-boton" color="verde"  (click)="iniciar();animateElem();" *ngIf="owner==email && game.status=='w' && initCard == true || indice == 53">
             <ion-icon class="icono-play" name="play"></ion-icon>
@@ -60,8 +60,9 @@
       <div class="consola" no-padding>
         &nbsp; Eventos: <br>
         <!-- Tambien agreguen eventos de "{{apodo}}se desconectó", "{{apodo}} hizo chorro con {{carta}}" y "El juego comienza en...{{tiempo.restante}}"-->
-        <div *ngFor="let item of players" class="conectado" style="">
-          <p>Se unió: {{item.player}}</p>
+        <div *ngFor="let item of players" class="conectado">
+          <img class="perfilConsola" src="assets/imgs/prueba.png">
+          <p offset-1>Se unió: {{item.player}}</p>
         </div>
       </div>
     </ion-col>

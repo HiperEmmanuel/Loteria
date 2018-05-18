@@ -101,10 +101,17 @@ page-juego {
 }
 
 .conectado{
-    color:rgb(20, 201, 214);
+    color:rgb(255, 255, 255);
     display: box;
     display: center;
 }
+.perfilConsola{
+    height: 2rem;
+    width: auto;
+    position: absolute;
+    transform: translateX(5px) translateY(-2px)
+}
+
 //Seleccionar Carta
 .si{
     background-color: transparent;
