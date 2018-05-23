@@ -307,7 +307,7 @@ export class JuegoPage {
         if(this.indice<53){
           this.indice2 ++;
         }
-        this.nativeAudio.play((this.game.random[this.indice]).toString(), () => { this.nativeAudio.unload(this.game.random[this.indice]).toString()});
+        //this.nativeAudio.play((this.game.random[this.indice]).toString(), () => { this.nativeAudio.unload(this.game.random[this.indice]).toString()});
 
         }
         //////////////////////////////////////////////
@@ -410,6 +410,7 @@ export class JuegoPage {
                 {text:ff.name,
                 locale:'es-MX'
             }).then(() => console.log('Success')).catch((reason: any) => console.log(reason));        });
+        this.indice++;
           }
         }
         if (this.game.control.wins.full != ''){
