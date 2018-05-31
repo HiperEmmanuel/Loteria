@@ -19,22 +19,22 @@
       <ion-icon name="trophy"></ion-icon>
     </button>
     <ion-fab-list>
-          <button ion-fab (click)="s_full=true;animation.start({type: 'zoomIn', duration: '1000'});" class="Llenas" style="background-color: white;" *ngIf="settings.full == true">  
+          <button ion-fab (click)="s_full=true;animation.start({type: 'zoomIn', duration: '1000'});" class="Llenas" style="background-color: white;" *ngIf="settings.full == true && !this.fullWinner">  
               <div animates #animation="animates">    
                 <img src="assets/imgs/posiciones/buenas.png" style="padding-top: 80%;">
               </div>
           </button>
-          <button ion-fab (click)="s_blast=true;animation.start({type: 'zoomIn', duration: '1000'});" class="Chorro" style="background-color: white;" *ngIf="settings.blast == true">
+          <button ion-fab (click)="s_blast=true;animation.start({type: 'zoomIn', duration: '1000'});" class="Chorro" style="background-color: white;" *ngIf="settings.blast == true && !this.blastWinner">
               <div animates #animation="animates">
                 <img src="assets/imgs/posiciones/chorro.png" style="padding-top: 80%;">
               </div>
           </button>
-      <button ion-fab (click)="s_square=true;animation.start({type: 'zoomIn', duration: '1000'});" class="4Esquinas" style="background-color: white;" *ngIf="settings.quarters == true">
+      <button ion-fab (click)="s_square=true;animation.start({type: 'zoomIn', duration: '1000'});" class="4Esquinas" style="background-color: white;" *ngIf="settings.quarters == true && !this.quarterWinner">
           <div animates #animation="animates">    
             <img src="assets/imgs/posiciones/4esquinas.png" style="padding-top: 80%;">
           </div>
       </button>
-      <button ion-fab (click)="s_center=true;animation.start({type: 'zoomIn', duration: '1000'});" class="Centrito" style="background-color: white;" *ngIf="settings.middle == true">
+      <button ion-fab (click)="s_center=true;animation.start({type: 'zoomIn', duration: '1000'});" class="Centrito" style="background-color: white;" *ngIf="settings.middle == true && !this.centerWinner">
           <div animates #animation="animates">    
            <img src="assets/imgs/posiciones/centrito.png" style="padding-top: 80%;">
           </div>
@@ -64,6 +64,14 @@
           <img class="perfilConsola" src="assets/imgs/perfil/{{item.avatar}}">
           <p offset-1>Se unió: {{item.player}}</p>
         </div>
+        <img class="perfilConsola" *ngIf="this.centerWinner" src="assets/imgs/perfil/{{centerWinner.avatar}}">
+        <p class="conectado" offset-1 *ngIf="this.centerWinner">{{this.centerWinner.player}} hizo centrito</p>
+        <img class="perfilConsola" *ngIf="this.blastWinner" src="assets/imgs/perfil/{{blastWinner.avatar}}">
+        <p class="conectado" offset-1 *ngIf="this.blastWinner">{{this.blastWinner.player}} hizo chorro</p>
+        <img class="perfilConsola" *ngIf="this.quarterWinner" src="assets/imgs/perfil/{{quarterWinner.avatar}}">
+        <p class="conectado" offset-1 *ngIf="this.quarterWinner">{{this.quarterWinner.player}} hizo cuatro esquinas</p>
+        <img class="perfilConsola" *ngIf="this.fullWinner" src="assets/imgs/perfil/{{fullWinner.avatar}}">
+        <p class="conectado" offset-1 *ngIf="this.fullWinner">{{this.fullWinner.player}} hizo llenas</p>
       </div>
     </ion-col>
   

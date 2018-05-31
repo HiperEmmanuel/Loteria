@@ -145,7 +145,7 @@ export class PartidaProvider {
           for(var i=0; i< count; i++){
             let key = ids[i];
             let item = snapshot.child(key).val();
-            console.log(item);
+            //console.log(item);
             lsGames.push(item);
           }
           }
