@@ -71,6 +71,10 @@ export class JuegoPage {
   public gettingrooms: any;
   public initCard: any = true;
   public putoelkelolea:any = true;
+  public quarterWinner: any;
+  public centerWinner: any;
+  public blastWinner: any;
+  public fullWinner: any;
 
   constructor(private tts: TextToSpeech,private alertCtrl: AlertController, public navCtrl: NavController,public partidaService: PartidaProvider, public navParams: NavParams, private modal: ModalController, private tableService: TableProvider, public afDB: AngularFireDatabase, private nativeAudio: NativeAudio,private animationService: AnimationService) {
     this.animator = animationService.builder();
@@ -276,6 +280,7 @@ export class JuegoPage {
   ///////////////////////////////////////////////juego.html
 
   iniciar(){
+    this.gettingrooms.unsubscribe();
       this.tts.speak(
         {text:'Se va y se corre',
         locale:'es-MX'
@@ -343,6 +348,7 @@ export class JuegoPage {
             }
           })
         }else{
+          this.fullWinner = this.game.control.wins.full;
           this.modal2();
           this.game.status = "F";
           this.stopObs();
@@ -350,7 +356,7 @@ export class JuegoPage {
         if (this.game.control.wins.blast == ''){
           this.partidaService.get_request_blast(this.game_id).then( gg => {
             let gf:any = gg;
-            console.log('esto es igualque arriba?',gf);
+            //console.log('esto es igualque arriba?',gf);
             if (gf.length>0){
               gf = gf[0];
               this.partidaService.get_room_by_id(gf.player_room).then(
@@ -360,6 +366,8 @@ export class JuegoPage {
               }
             )}
           })
+        }else{
+          this.blastWinner = this.game.control.wins.blast;
         }
         if (this.game.control.wins.quarter == ''){
           this.partidaService.get_request_square(this.game_id).then( gg => {
@@ -373,6 +381,8 @@ export class JuegoPage {
               }
             )}
           })
+        }else{
+          this.quarterWinner = this.game.control.wins.quarter;
         }
         if (this.game.control.wins.center == ''){
           this.partidaService.get_request_center(this.game_id).then( gg => {
@@ -386,6 +396,8 @@ export class JuegoPage {
               }
             )}
           })
+        }else{
+          this.centerWinner = this.game.control.wins.center;
         }
         this.partidaService.getPlayers(this.game_id).then(hh => {
           let as:any = hh;
@@ -413,12 +425,13 @@ export class JuegoPage {
                 {text:ff.name,
                 locale:'es-MX'
             }).then(() => console.log('Success')).catch((reason: any) => console.log(reason));        });
+            if (this.game.control.wins.full != ''){
+              this.modal2();
+              this.stopObs();
+            }
           }
         }
-        if (this.game.control.wins.full != ''){
-          this.modal2();
-          this.stopObs();
-        }
+
         this.partidaService.get_my_room(this.user.email).then(xa => {
           let roomy:any = xa;
           if (this.s_full){
