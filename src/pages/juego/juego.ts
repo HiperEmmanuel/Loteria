@@ -12,6 +12,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { PerfilProvider } from '../../providers/perfil/perfil';
 
 import { AnimationService, AnimationBuilder } from 'css-animator';
 
@@ -71,12 +72,13 @@ export class JuegoPage {
   public gettingrooms: any;
   public initCard: any = true;
   public putoelkelolea:any = true;
+  public perfil = [];
   public quarterWinner: any;
   public centerWinner: any;
   public blastWinner: any;
   public fullWinner: any;
 
-  constructor(private tts: TextToSpeech,private alertCtrl: AlertController, public navCtrl: NavController,public partidaService: PartidaProvider, public navParams: NavParams, private modal: ModalController, private tableService: TableProvider, public afDB: AngularFireDatabase, private nativeAudio: NativeAudio,private animationService: AnimationService) {
+  constructor(private tts: TextToSpeech,private alertCtrl: AlertController, public navCtrl: NavController,public partidaService: PartidaProvider, public navParams: NavParams, private modal: ModalController, private tableService: TableProvider, public afDB: AngularFireDatabase, private nativeAudio: NativeAudio,private animationService: AnimationService,private perfilService: PerfilProvider) {
     this.animator = animationService.builder();
 
     this.game = {random: [0,0,0]}
@@ -179,9 +181,21 @@ export class JuegoPage {
         this.partidaService.getPlayers(this.game_id).then(
           response => {
             this.players = response;
+            this.perfil = [];
+            for(let player of this.players){
+              let data = { player: '', avatar: '' };
+              this.perfilService.getPerfil((player.player),(result) => {
+                var avatar = result.Avatar;
+                var apodo = result.Apodo;
+                data.avatar = avatar;
+                data.player= apodo;
+              });
+              this.perfil.push(data);
+            }
           }
         )
       });
+
       if(this.email != this.owner){
         let z=false;
         this.showClientControl = true;
@@ -349,6 +363,14 @@ export class JuegoPage {
           })
         }else{
           this.fullWinner = this.game.control.wins.full;
+          this.perfilService.getPerfil((this.fullWinner),(result) => {
+            var avatar = result.Avatar;
+            var apodo = result.Apodo;
+            var data = {player: '', avatar: ''};
+            data.avatar = avatar;
+            data.player= apodo;
+            this.fullWinner=data;
+          });
           this.modal2();
           this.game.status = "F";
           this.stopObs();
@@ -368,6 +390,14 @@ export class JuegoPage {
           })
         }else{
           this.blastWinner = this.game.control.wins.blast;
+          this.perfilService.getPerfil((this.blastWinner),(result) => {
+            var avatar = result.Avatar;
+            var apodo = result.Apodo;
+            var data = {player: '', avatar: ''};
+            data.avatar = avatar;
+            data.player= apodo;
+            this.blastWinner=data;
+          });
         }
         if (this.game.control.wins.quarter == ''){
           this.partidaService.get_request_square(this.game_id).then( gg => {
@@ -383,6 +413,14 @@ export class JuegoPage {
           })
         }else{
           this.quarterWinner = this.game.control.wins.quarter;
+          this.perfilService.getPerfil((this.quarterWinner),(result) => {
+            var avatar = result.Avatar;
+            var apodo = result.Apodo;
+            var data = {player: '', avatar: ''};
+            data.avatar = avatar;
+            data.player= apodo;
+            this.quarterWinner=data;
+          });
         }
         if (this.game.control.wins.center == ''){
           this.partidaService.get_request_center(this.game_id).then( gg => {
@@ -398,6 +436,14 @@ export class JuegoPage {
           })
         }else{
           this.centerWinner = this.game.control.wins.center;
+          this.perfilService.getPerfil((this.centerWinner),(result) => {
+            var avatar = result.Avatar;
+            var apodo = result.Apodo;
+            var data = {player: '', avatar: ''};
+            data.avatar = avatar;
+            data.player= apodo;
+            this.centerWinner=data;
+          });
         }
         this.partidaService.getPlayers(this.game_id).then(hh => {
           let as:any = hh;

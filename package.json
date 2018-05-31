@@ -85,8 +85,7 @@
         },
         "platforms": [
             "browser",
-            "windows",
-            "android"
+            "windows"
         ]
     }
 }

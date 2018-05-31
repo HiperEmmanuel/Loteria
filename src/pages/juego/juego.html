@@ -60,14 +60,18 @@
       <div class="consola" no-padding>
         &nbsp; Eventos: <br>
         <!-- Tambien agreguen eventos de "{{apodo}}se desconectó", "{{apodo}} hizo chorro con {{carta}}" y "El juego comienza en...{{tiempo.restante}}"-->
-        <div *ngFor="let item of players" class="conectado">
-          <img class="perfilConsola" src="assets/imgs/prueba.png">
+        <div *ngFor="let item of perfil" class="conectado">
+          <img class="perfilConsola" src="assets/imgs/perfil/{{item.avatar}}">
           <p offset-1>Se unió: {{item.player}}</p>
         </div>
-        <p class="conectado" offset-1 *ngIf="this.centerWinner">{{this.centerWinner}} hizo centrito</p>
-        <p class="conectado" offset-1 *ngIf="this.blastWinner">{{this.blastWinner}} hizo chorro</p>
-        <p class="conectado" offset-1 *ngIf="this.quarterWinner">{{this.quarterWinner}} hizo cuatro esquinas</p>
-        <p class="conectado" offset-1 *ngIf="this.fullWinner">{{this.fullWinner}} hizo llenas</p>
+        <img class="perfilConsola" *ngIf="this.centerWinner" src="assets/imgs/perfil/{{centerWinner.avatar}}">
+        <p class="conectado" offset-1 *ngIf="this.centerWinner">{{this.centerWinner.player}} hizo centrito</p>
+        <img class="perfilConsola" *ngIf="this.blastWinner" src="assets/imgs/perfil/{{blastWinner.avatar}}">
+        <p class="conectado" offset-1 *ngIf="this.blastWinner">{{this.blastWinner.player}} hizo chorro</p>
+        <img class="perfilConsola" *ngIf="this.quarterWinner" src="assets/imgs/perfil/{{quarterWinner.avatar}}">
+        <p class="conectado" offset-1 *ngIf="this.quarterWinner">{{this.quarterWinner.player}} hizo cuatro esquinas</p>
+        <img class="perfilConsola" *ngIf="this.fullWinner" src="assets/imgs/perfil/{{fullWinner.avatar}}">
+        <p class="conectado" offset-1 *ngIf="this.fullWinner">{{this.fullWinner.player}} hizo llenas</p>
       </div>
     </ion-col>
   
