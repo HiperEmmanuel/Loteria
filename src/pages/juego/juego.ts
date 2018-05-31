@@ -238,7 +238,7 @@ export class JuegoPage {
     this.navCtrl.setRoot(HomePage);
   }
   /////////////////////////////////////////juego.html
-  modal2(){
+    modal2(){
     //console.log("game" + this.game_id)
     this.partidaService.getlastgame(this.owner).then( ab => {
       this.owner = ab;
@@ -328,6 +328,7 @@ export class JuegoPage {
         });
         /////////////////////////////////////////////7
         if (this.game.control.wins.full == ''){
+          console.log("vine al cliente haber que pedo");
           this.partidaService.get_request_full(this.game_id).then( gg => {
             let gf:any = gg;
             if (gf.length>0){
@@ -336,12 +337,14 @@ export class JuegoPage {
                 ff => {
                   let ag:any = ff;
                   this.game.control.wins.full = ag.player;
+                  
                 }
               )
             }
           })
         }else{
           this.modal2();
+          console.log("modal primera vez");
           this.game.status = "F";
           this.stopObs();
         }
@@ -398,6 +401,10 @@ export class JuegoPage {
           });
         })
         ///////////////////////////////////////////////
+//servidor hacia arriba
+
+
+
         }else if(this.user.email != this.game.owner && this.game.status == "I"){
 
           if(this.indice<53){
@@ -410,13 +417,15 @@ export class JuegoPage {
                 {text:ff.name,
                 locale:'es-MX'
             }).then(() => console.log('Success')).catch((reason: any) => console.log(reason));        });
-        this.indice++;
+            this.indice++;
+            if (this.game.control.wins.full != ''){
+              console.log("modal segunda vez");
+              this.modal2();
+              this.stopObs();
+            }
           }
         }
-        if (this.game.control.wins.full != ''){
-          this.modal2();
-          this.stopObs();
-        }
+        
         this.partidaService.get_my_room(this.user.email).then(xa => {
           let roomy:any = xa;
           if (this.s_full){
