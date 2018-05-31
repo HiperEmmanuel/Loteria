@@ -561,20 +561,29 @@ export class PartidaProvider {
           //console.log(games);
           let ids = Object.keys(games);
           let count = Object.keys(games).length;
+          let userflag: boolean = false;
           for(var i=0; i< count; i++){
             let key = ids[i];
             let item = snapshot.child(key).val();
+            userflag = false;
             if (item['control']) {
               if(item.control.wins.full == user){
                 lsGames.full++;
+                userflag = true;
               }if(item.control.wins.blast == user){
                 lsGames.blast++;
+                userflag = true;
               }if(item.control.wins.quarter == user){
                 lsGames.quarter++;
+                userflag = true;
               }if(item.control.wins.center == user){
                 lsGames.center++;
+                userflag = true;
               }
-              lsGames.total++;
+              if(userflag){
+                lsGames.total++;
+              }
+              
             }
           }
           resolve(lsGames);

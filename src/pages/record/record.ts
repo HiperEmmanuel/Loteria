@@ -30,16 +30,35 @@ export class RecordPage {
 
   public barChartOptions:any = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    scales: {
+      yAxes: [{
+          ticks: {
+              beginAtZero:true
+          }
+      }]
+  }
   };
-  public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartLabels:string[] = ['Total'];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
- 
   public barChartData:any[] = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
+    {data: [ this.cosas.total], label: 'Jugadas'},
+    {data: [ this.cosas.full], label: 'Ganadas'},
+    {data: [ this.cosas.blast], label: 'Chorros'},
+    {data: [ this.cosas.quarter], label: '4 Esquinas'},
+    {data: [ this.cosas.center], label: 'Centros'}
   ];
+  public options = {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero:true
+            }
+        }]
+    }
+};
+  
   
   constructor(
     public navCtrl: NavController,
@@ -50,6 +69,13 @@ export class RecordPage {
     this.user = firebase.auth().currentUser;
     pp.getGamesWhereWin(this.user.email).then(mi_codigo_mi_variable => {
       this.cosas = mi_codigo_mi_variable;
+      this.barChartData = [
+        {data: [ this.cosas.total], label: 'Jugadas'},
+        {data: [ this.cosas.full], label: 'Ganadas'},
+        {data: [ this.cosas.blast], label: 'Chorros'},
+        {data: [ this.cosas.quarter], label: '4 Esquinas'},
+        {data: [ this.cosas.center], label: 'Centros'}
+      ];
     });
 
     events.subscribe('openRecord',(records) =>{
@@ -66,7 +92,16 @@ export class RecordPage {
       centritos: false,
       perdedores: false};
     this.menu.enable(true,'menurecords');
-    
+    this.pp.getGamesWhereWin(this.user.email).then(mi_codigo_mi_variable => {
+      this.cosas = mi_codigo_mi_variable;
+      this.barChartData = [
+        {data: [ this.cosas.total], label: 'Jugadas'},
+        {data: [ this.cosas.full], label: 'Ganadas'},
+        {data: [ this.cosas.blast], label: 'Chorros'},
+        {data: [ this.cosas.quarter], label: '4 Esquinas'},
+        {data: [ this.cosas.center], label: 'Centros'}
+      ];
+    });
   }
 
   ionViewWillLeave(){
