@@ -62,7 +62,7 @@
         <!-- Tambien agreguen eventos de "{{apodo}}se desconectó", "{{apodo}} hizo chorro con {{carta}}" y "El juego comienza en...{{tiempo.restante}}"-->
         <div *ngFor="let item of perfil" class="conectado">
           <img class="perfilConsola" src="assets/imgs/perfil/{{item.avatar}}">
-          <p offset-1>Se unió: {{item.player}}</p>
+          <p offset-1>Se unió {{item.player}}</p>
         </div>
         <img class="perfilConsola" *ngIf="this.centerWinner" src="assets/imgs/perfil/{{centerWinner.avatar}}">
         <p class="conectado" offset-1 *ngIf="this.centerWinner">{{this.centerWinner.player}} hizo centrito</p>

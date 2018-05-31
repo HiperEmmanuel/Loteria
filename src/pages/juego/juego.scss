@@ -104,12 +104,13 @@ page-juego {
     color:rgb(255, 255, 255);
     display: box;
     display: center;
+    padding-left: 1rem;
 }
 .perfilConsola{
     height: 2rem;
     width: auto;
     position: absolute;
-    transform: translateX(5px) translateY(-2px)
+    transform: translateX(-1px) translateY(-4px);
 }
 
 //Seleccionar Carta

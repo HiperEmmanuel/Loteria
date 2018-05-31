@@ -82,7 +82,8 @@
 .conectado {
   color: #6700a3;
   display: box;
-  display: center; }
+  display: center;
+ }
 
 .si {
   background-color: transparent;
@@ -103,6 +104,12 @@
   position: relative;
   z-index: 1;
   background-color: crimson; }
+.perfilConsola {
+  height: 2rem;
+  width: auto;
+  position: absolute;
+  transform: translateX(5px) translateY(-2px)
+}
 
 @media (max-width: 340px) {
   .estilo-boton {

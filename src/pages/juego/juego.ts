@@ -323,7 +323,8 @@ export class JuegoPage {
           this.tts.speak(
             {text:ff.name,
             locale:'es-MX'
-        }).then(() => console.log('Success')).catch((reason: any) => console.log(reason));        });
+        })      
+       });
 
         if(this.indice<53){
           this.indice2 ++;
@@ -464,13 +465,16 @@ export class JuegoPage {
             this.intervalito = 1;
             this.indice = this.game.currentCard;
             //console.log(this.indice);
-            this.partidaService.getCarta(this.game.random[this.indice]).then(zz=>{
-              let ff:any=zz;
-              //console.log(ff.name);
+            this.partidaService.getCarta(this.game.random[this.indice]).then(zz => {
+              let ff: any = zz;
+              console.log(ff.name);
               this.tts.speak(
-                {text:ff.name,
-                locale:'es-MX'
-            }).then(() => console.log('Success')).catch((reason: any) => console.log(reason));        });
+                {
+                  text: ff.name,
+                  locale: 'es-MX'
+                }).then(() => console.log('Success')).catch((reason: any) => console.log(reason));
+            });
+
             if (this.game.control.wins.full != ''){
               this.modal2();
               this.stopObs();
@@ -506,7 +510,9 @@ is_full(room){
 }
 is_blast(room){
   let a = room.stats;
-  if((a[0][0].marked == true && a[0][0].showed == true && a[1][1].marked == true && a[1][1].showed == true && a[2][2].marked == true && a[2][2].showed == true && a[3][3].marked == true && a[3][3].showed == true)||(a[0][3].marked == true && a[0][3].showed == true && a[1][2].marked == true && a[1][2].showed == true && a[2][1].marked == true && a[2][1].showed == true && a[2][0].marked == true && a[2][0].showed == true)){
+  if ((a[0][0].marked == true && a[0][0].showed == true && a[1][1].marked == true && a[1][1].showed == true && a[2][2].marked == true && a[2][2].showed == true && a[3][3].marked == true && a[3][3].showed == true) || (a[0][3].marked == true && a[0][3].showed == true && a[1][2].marked == true && a[1][2].showed == true && a[2][1].marked == true && a[2][1].showed == true && a[2][0].marked == true && a[2][0].showed == true) || 
+    (a[0][0].marked == true && a[0][0].showed == true && a[0][1].marked == true && a[0][1].showed == true && a[0][2].marked == true && a[0][2].showed == true && a[0][3].marked == true && a[0][3].showed == true) || (a[1][0].marked == true && a[1][0].showed == true && a[1][1].marked == true && a[1][1].showed == true && a[1][2].marked == true && a[1][2].showed == true && a[1][3].marked == true && a[1][3].showed == true) || (a[2][0].marked == true && a[2][0].showed == true && a[2][1].marked == true && a[2][1].showed == true && a[2][2].marked == true && a[2][2].showed == true && a[2][3].marked == true && a[2][3].showed == true) || (a[3][0].marked == true && a[3][0].showed == true && a[3][1].marked == true && a[3][1].showed == true && a[3][2].marked == true && a[3][2].showed == true && a[3][3].marked == true && a[3][3].showed == true)||
+    (a[0][0].marked == true && a[0][0].showed == true && a[1][0].marked == true && a[1][0].showed == true && a[2][0].marked == true && a[2][0].showed == true && a[3][0].marked == true && a[3][0].showed == true) || (a[0][1].marked == true && a[0][1].showed == true && a[1][1].marked == true && a[1][1].showed == true && a[2][1].marked == true && a[2][1].showed == true && a[3][1].marked == true && a[3][1].showed == true) || (a[0][2].marked == true && a[0][2].showed == true && a[1][2].marked == true && a[1][2].showed == true && a[2][2].marked == true && a[2][2].showed == true && a[3][2].marked == true && a[3][2].showed == true) || (a[0][3].marked == true && a[0][3].showed == true && a[1][3].marked == true && a[1][3].showed == true && a[2][3].marked == true && a[2][3].showed == true && a[3][3].marked == true && a[3][3].showed == true)){
     let req = this.room_request_blast;
     req.game_id = this.game_id;
     req.player_room = room.id;
