@@ -63,12 +63,11 @@
         <div *ngFor="let item of players" class="conectado">
           <img class="perfilConsola" src="assets/imgs/prueba.png">
           <p offset-1>Se unió: {{item.player}}</p>
-          <p offset-1 *ngIf="this.centerWinner">{{this.centerWinner}} hizo centrito</p>
-          <p offset-1 *ngIf="this.blastWinner">{{this.blastWinner}} hizo chorro</p>
-          <p offset-1 *ngIf="this.quarterWinner">{{this.quarterWinner}} hizo cuatro esquinas</p>
-          <p offset-1 *ngIf="this.fullWinner">{{this.fullWinner}} hizo llenas</p>
-         
         </div>
+        <p class="conectado" offset-1 *ngIf="this.centerWinner">{{this.centerWinner}} hizo centrito</p>
+        <p class="conectado" offset-1 *ngIf="this.blastWinner">{{this.blastWinner}} hizo chorro</p>
+        <p class="conectado" offset-1 *ngIf="this.quarterWinner">{{this.quarterWinner}} hizo cuatro esquinas</p>
+        <p class="conectado" offset-1 *ngIf="this.fullWinner">{{this.fullWinner}} hizo llenas</p>
       </div>
     </ion-col>
   
