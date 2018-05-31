@@ -60,8 +60,8 @@
       <div class="consola" no-padding>
         &nbsp; Eventos: <br>
         <!-- Tambien agreguen eventos de "{{apodo}}se desconectó", "{{apodo}} hizo chorro con {{carta}}" y "El juego comienza en...{{tiempo.restante}}"-->
-        <div *ngFor="let item of players" class="conectado">
-          <img class="perfilConsola" src="assets/imgs/prueba.png">
+        <div *ngFor="let item of perfil" class="conectado">
+          <img class="perfilConsola" src="assets/imgs/perfil/{{item.avatar}}">
           <p offset-1>Se unió: {{item.player}}</p>
         </div>
       </div>

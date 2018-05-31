@@ -12,6 +12,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { PerfilProvider } from '../../providers/perfil/perfil';
 
 import { AnimationService, AnimationBuilder } from 'css-animator';
 
@@ -71,8 +72,9 @@ export class JuegoPage {
   public gettingrooms: any;
   public initCard: any = true;
   public putoelkelolea:any = true;
+  public perfil = [];
 
-  constructor(private tts: TextToSpeech,private alertCtrl: AlertController, public navCtrl: NavController,public partidaService: PartidaProvider, public navParams: NavParams, private modal: ModalController, private tableService: TableProvider, public afDB: AngularFireDatabase, private nativeAudio: NativeAudio,private animationService: AnimationService) {
+  constructor(private tts: TextToSpeech,private alertCtrl: AlertController, public navCtrl: NavController,public partidaService: PartidaProvider, public navParams: NavParams, private modal: ModalController, private tableService: TableProvider, public afDB: AngularFireDatabase, private nativeAudio: NativeAudio,private animationService: AnimationService,private perfilService: PerfilProvider) {
     this.animator = animationService.builder();
 
     this.game = {random: [0,0,0]}
@@ -174,9 +176,22 @@ export class JuegoPage {
         this.partidaService.getPlayers(this.game_id).then(
           response => {
             this.players = response;
+            this.perfil = [];
+            for(let player of this.players){
+              let data = { player: '', avatar: '' };
+              this.perfilService.getPerfil((player.player),(result) => {
+                var avatar = result.Avatar;
+                var apodo = result.Apodo;
+                data.avatar = avatar;
+                data.player= apodo;
+              });
+              this.perfil.push(data);
+            }
+            console.log(this.perfil);
           }
         )
       });
+
       if(this.email != this.owner){
         let z=false;
         this.showClientControl = true;
