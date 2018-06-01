@@ -52,7 +52,7 @@ export class HomePage {
   }
   compartir() {
     // Share
-    this.socialSharing.shareViaWhatsApp('Te invito a jugar lotería conmigo, solo tienes que bajarla: ', 'http://i68.tinypic.com/ngvi20.png', 'https://goo.gl/Zg51eD').then(() => {
+    this.socialSharing.shareViaWhatsApp('Te invito a jugar lotería conmigo, solo tienes que bajarla: ', 'http://i68.tinypic.com/ngvi20.png', 'https://goo.gl/Vur4yw').then(() => {
       // Success!
     }).catch(() => {
       // Error!
