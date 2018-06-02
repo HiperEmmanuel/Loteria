@@ -64,15 +64,23 @@
           <img class="perfilConsola" src="assets/imgs/perfil/{{item.avatar}}">
           <p offset-1>Se unió {{item.player}}</p>
         </div>
-        <img class="perfilConsola" *ngIf="this.centerWinner" src="assets/imgs/perfil/{{centerWinner.avatar}}">
-        <p class="conectado" offset-1 *ngIf="this.centerWinner">{{this.centerWinner.player}} hizo centrito</p>
-        <img class="perfilConsola" *ngIf="this.blastWinner" src="assets/imgs/perfil/{{blastWinner.avatar}}">
-        <p class="conectado" offset-1 *ngIf="this.blastWinner">{{this.blastWinner.player}} hizo chorro</p>
-        <img class="perfilConsola" *ngIf="this.quarterWinner" src="assets/imgs/perfil/{{quarterWinner.avatar}}">
-        <p class="conectado" offset-1 *ngIf="this.quarterWinner">{{this.quarterWinner.player}} hizo cuatro esquinas</p>
-        <img class="perfilConsola" *ngIf="this.fullWinner" src="assets/imgs/perfil/{{fullWinner.avatar}}">
-        <p class="conectado" offset-1 *ngIf="this.fullWinner">{{this.fullWinner.player}} hizo llenas</p>
-      </div>
+<div *ngIf="this.centerWinner">
+<img class="perfilConsola" src="assets/imgs/perfil/{{centerWinner.avatar}}">
+<p class="conectado" offset-1>{{this.centerWinner.player}} hizo centrito</p>
+        </div>
+<div *ngIf="this.blastWinner">
+<img class="perfilConsola" src="assets/imgs/perfil/{{blastWinner.avatar}}">
+<p class="conectado" offset-1>{{this.blastWinner.player}} hizo chorro</p>
+        </div>
+<div *ngIf="this.quarterWinner">
+<img class="perfilConsola"  src="assets/imgs/perfil/{{quarterWinner.avatar}}">
+<p class="conectado" offset-1>{{this.quarterWinner.player}} hizo cuatro esquinas</p>
+        </div>
+<div *ngIf="this.fullWinner">
+<img class="perfilConsola" src="assets/imgs/perfil/{{fullWinner.avatar}}">
+<p class="conectado" offset-1>{{this.fullWinner.player}} hizo llenas</p>
+        </div>
+        </div>
     </ion-col>
   
   </ion-row>
