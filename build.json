@@ -1,0 +1,18 @@
+{
+     "android": {
+         "debug": {
+             "keystore": "miapp.keystore",
+             "storePassword": "123456",
+             "alias": "miapp",
+             "password" : "123456",
+             "keystoreType": ""
+         },
+         "release": {
+             "keystore": "miapp.keystore",
+             "storePassword": "123456",
+             "alias": "miapp",
+             "password" : "123456",
+             "keystoreType": ""
+         }
+     }
+ }
