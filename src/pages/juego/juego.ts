@@ -10,7 +10,6 @@ import { CrearPartidaPage } from "../crear-partida/crear-partida";
 import 'rxjs/add/observable/interval';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
-import { NativeAudio } from '@ionic-native/native-audio';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { PerfilProvider } from '../../providers/perfil/perfil';
 
@@ -35,8 +34,8 @@ export class JuegoPage {
 
   //texto: string =  "SI";
   estadoPositivo = [];
-
-
+  putos=1;
+  index=0;
   tb:any;
   public id: any;
   public tables: any;
@@ -77,10 +76,12 @@ export class JuegoPage {
   public centerWinner: any;
   public blastWinner: any;
   public fullWinner: any;
-
-  constructor(private tts: TextToSpeech,private alertCtrl: AlertController, public navCtrl: NavController,public partidaService: PartidaProvider, public navParams: NavParams, private modal: ModalController, private tableService: TableProvider, public afDB: AngularFireDatabase, private nativeAudio: NativeAudio,private animationService: AnimationService,private perfilService: PerfilProvider) {
+  public cartas:any;
+  constructor(private tts: TextToSpeech,private alertCtrl: AlertController, public navCtrl: NavController,public partidaService: PartidaProvider, public navParams: NavParams, private modal: ModalController, private tableService: TableProvider, public afDB: AngularFireDatabase,private animationService: AnimationService,private perfilService: PerfilProvider) {
     this.animator = animationService.builder();
-
+    this.partidaService.getCarta().then(zz=>{
+      this.cartas=zz;       
+    });
     this.game = {random: [0,0,0]}
     this.estadoPositivo[0] = false;
     this.estadoPositivo[1] = false;
@@ -104,7 +105,9 @@ export class JuegoPage {
       currentGame = response;
       this.game = currentGame;
       this.settings = currentGame.settings;
+      console.log(this.game);
     })
+    
   }
   
   animateElem() {
@@ -294,16 +297,33 @@ export class JuegoPage {
   ///////////////////////////////////////////////juego.html
 
   iniciar(){
+    this.tts.speak(
+      {text:'Se va y se corre',
+      locale:'es-MX'
+  }).then(() => console.log('Se va y se corre')).catch((reason: any) => console.log(reason));
+  
+    this.index=0;
+    this.putos=this.game.random[this.index];    
+  // console.log(this.game.random[this.index]);
+  
     this.gettingrooms.unsubscribe();
-      this.tts.speak(
-        {text:'Se va y se corre',
-        locale:'es-MX'
-    }).then(() => console.log('Se va y se corre')).catch((reason: any) => console.log(reason));
+     
 
     this.initCard = false;
     this.subControl = true;
     let eraunamamada = true;
     this.sub = Observable.interval(1000*this.intervalito).subscribe((val) => {
+      this.putos=this.game.random[this.index];    
+      console.log(this.game.random);
+      console.log(this.putos);
+      console.log(this.cartas[this.putos].name);
+     
+     //console.log(ff.name);
+     this.tts.speak(
+       {text:this.cartas[this.putos].name,
+       locale:'es-MX'
+   });
+   this.index ++;  
       this.partidaService.getGame(this.game_id).then( aa => {
         if (eraunamamada || this.user.email != this.game.owner){
           eraunamamada = false;
@@ -317,20 +337,10 @@ export class JuegoPage {
         this.indice = this.game.currentCard;
         //console.log(this.game.currentCard);
         //console.log(this.indice)
-        this.partidaService.getCarta(this.game.random[this.indice]).then(zz=>{
-          let ff:any=zz;
-          //console.log(ff.name);
-          this.tts.speak(
-            {text:ff.name,
-            locale:'es-MX'
-        })      
-       });
-
+       
         if(this.indice<53){
           this.indice2 ++;
         }
-        this.nativeAudio.play((this.game.random[this.indice]).toString(), () => { this.nativeAudio.unload(this.game.random[this.indice]).toString()});
-
         }
         //////////////////////////////////////////////
         //funciona esto ya
@@ -465,16 +475,6 @@ export class JuegoPage {
             this.intervalito = 1;
             this.indice = this.game.currentCard;
             //console.log(this.indice);
-            this.partidaService.getCarta(this.game.random[this.indice]).then(zz => {
-              let ff: any = zz;
-              console.log(ff.name);
-              this.tts.speak(
-                {
-                  text: ff.name,
-                  locale: 'es-MX'
-                }).then(() => console.log('Success')).catch((reason: any) => console.log(reason));
-            });
-
             if (this.game.control.wins.full != ''){
               this.modal2();
               this.stopObs();
