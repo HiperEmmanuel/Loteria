@@ -58,7 +58,7 @@ export class JuegoPage {
   currentCard: any;
   players:any;
   public games: any;
-  public showCard: any;
+  public waitGame: any;
   public showControl: any;
   public room_request_check:any = {player_room: null, game_id: null, stats:[null,null,null], status: true};
   public room_request_full:any = {player_room: null, game_id: null, status: true};
@@ -202,15 +202,15 @@ export class JuegoPage {
       if(this.email != this.owner){
         let z=false;
         this.showClientControl = true;
-        this.showCard = this.afDB.list('/game/').valueChanges().subscribe(games => {
-          this.partidaService.getGame(this.game_id).then(response =>{
-            if(response['status'] == "I"){
+        this.waitGame = this.afDB.list('/game/'+this.game_id).valueChanges().subscribe(game => {
+          //this.partidaService.getGame(this.game_id).then(response =>{
+            if(game['6'] == "I"){
               if(z==false){
                 this.iniciar();
                 z=true;
               }
             }
-        })
+        //})
       });
       }
 
@@ -249,8 +249,6 @@ export class JuegoPage {
     }
     if(this.showClientControl == true && this.user.email != this.game.owner){
       this.showClientControl = false;
-      this.showCard.unsubscribe();
-
     }
   }
 
@@ -261,7 +259,6 @@ export class JuegoPage {
   }
   /////////////////////////////////////////juego.html
   modal2(){
-    //console.log("game" + this.game_id)
     this.partidaService.getlastgame(this.owner).then( ab => {
       this.owner = ab;
       console.log(this.owner);
@@ -297,54 +294,48 @@ export class JuegoPage {
   ///////////////////////////////////////////////juego.html
 
   iniciar(){
+    this.gettingrooms.unsubscribe();
     this.tts.speak(
       {text:'Se va y se corre',
       locale:'es-MX'
-  }).then(() => console.log('Se va y se corre')).catch((reason: any) => console.log(reason));
+    }).then(() => console.log('Se va y se corre')).catch((reason: any) => console.log(reason));
   
     this.index=0;
     this.putos=this.game.random[this.index];    
-  // console.log(this.game.random[this.index]);
-  
-    this.gettingrooms.unsubscribe();
-     
-
     this.initCard = false;
     this.subControl = true;
     let eraunamamada = true;
     this.sub = Observable.interval(1000*this.intervalito).subscribe((val) => {
-      this.putos=this.game.random[this.index];    
-      console.log(this.game.random);
-      console.log(this.putos);
-      console.log(this.cartas[this.putos].name);
-     
-     //console.log(ff.name);
-     this.tts.speak(
+      this.putos=this.game.random[this.index];      
+
+      this.tts.speak(
        {text:this.cartas[this.putos].name,
        locale:'es-MX'
-   });
-   this.index ++;  
+      });
+
+    this.index ++;  
+
       this.partidaService.getGame(this.game_id).then( aa => {
+
         if (eraunamamada || this.user.email != this.game.owner){
           eraunamamada = false;
           this.game = aa;
         }
+
         if (this.user.email == this.game.owner) {
           if (this.putoelkelolea){
-          this.game.currentCard = this.indice2;
-          this.game.status = "I";
-        this.partidaService.update_card(this.game_id, this.game);
-        this.indice = this.game.currentCard;
-        //console.log(this.game.currentCard);
-        //console.log(this.indice)
-       
-        if(this.indice<53){
-          this.indice2 ++;
-        }
-        }
-        //////////////////////////////////////////////
+            this.game.currentCard = this.indice2;
+            this.game.status = "I";
+            this.partidaService.update_card(this.game_id, this.game);
+            this.indice = this.game.currentCard;
+            if(this.indice<53){
+              this.indice2 ++;
+            }
+          }
+
         //funciona esto ya
-          this.partidaService.get_request_check(this.game_id).then(gg => {
+
+        this.partidaService.get_request_check(this.game_id).then(gg => {
             let f:any = gg;
             f.forEach(element => {
               try {
@@ -358,6 +349,7 @@ export class JuegoPage {
               }
             });
         });
+
         /////////////////////////////////////////////7
         if (this.game.control.wins.full == ''){
           this.partidaService.get_request_full(this.game_id).then( gg => {
@@ -386,6 +378,7 @@ export class JuegoPage {
           this.game.status = "F";
           this.stopObs();
         }
+        
         if (this.game.control.wins.blast == ''){
           this.partidaService.get_request_blast(this.game_id).then( gg => {
             let gf:any = gg;
@@ -470,7 +463,7 @@ export class JuegoPage {
         })
         ///////////////////////////////////////////////
         }else if(this.user.email != this.game.owner && this.game.status == "I"){
-
+          this.waitGame.unsubscribe();
           if(this.indice<53){
             this.intervalito = 1;
             this.indice = this.game.currentCard;
