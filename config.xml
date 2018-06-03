@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.hipersoft.loteria" version="0.3.40" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Loteria</name>
+<widget id="com.hipersoft.loteria" version="0.3.49" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>La Lotería</name>
     <description>Una aplicación para jugar lotería mexicana.</description>
     <author email="softwarehiper@gmail.com" href="http://fim.uas.edu.mx/">4-02</author>
     <content src="index.html" />
     <access origin="*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
+    <allow-intent href="https://play.google.com/store/apps/details?id=com.hipersoft.loteria" />
+    <allow-intent href="https://github.com/HiperEmmanuel/Loteria" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="softwarehiper@gmail.com" />
@@ -21,7 +21,7 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="loadUrlTimeoutValue" value="50000" />
     <platform name="android">
-        <allow-intent href="market:*" />
+        <allow-intent href="market:https://play.google.com/store/apps/details?id=com.hipersoft.loteria" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
