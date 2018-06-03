@@ -12,7 +12,9 @@
       <button ion-button icon-only clear color="dark">
         <ion-icon name="logo-usd"></ion-icon> 300
       </button>
-      <button ion-button (click)="cerrarModal()"><ion-icon name="close"></ion-icon></button>
+      <button ion-button (click)="cerrarModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 
@@ -20,32 +22,31 @@
 
 
 <ion-content #content padding id="content" style="background-color: rgba(255, 255, 255, 0.397);">
-<ion-card *ngFor="let message of messages" class="msnChat">
-<ion-card-header>
-  {{ message.nombre }} a las {{ message.hora | date: 'HH:mm' }}
-</ion-card-header>
-<ion-card-content>
-  {{ message.mensaje }}
-</ion-card-content>
-</ion-card>
+  <ion-card *ngFor="let message of messages" class="msnChat">
+    <ion-card-header>
+      <img class="perfilConsola" src="assets/imgs/perfil/0.png">
+      <p class="detalle">{{ message.nombre }} a las {{ message.hora | date: 'HH:mm' }} </p>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ message.mensaje }} </p>
+
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
-  <ion-footer>
-      <form [formGroup]="myForm" (ngSubmit)="sendMessage()">
+<ion-footer>
+  <form [formGroup]="myForm" (ngSubmit)="sendMessage()">
     <ion-item>
-      <ion-input type="text" placeholder="Mensaje" formControlName="message" [(ngModel)]="message" ></ion-input>
-      
-        <button ion-button item-right color="secondary" type="submit" [disabled]="!myForm.valid"><ion-icon name="send"></ion-icon> </button>
-  
-      
+      <ion-input type="text" placeholder="Mensaje" formControlName="message" [(ngModel)]="message"></ion-input>
+
+      <button ion-button item-right color="secondary" type="submit" [disabled]="!myForm.valid">
+        <ion-icon name="send"></ion-icon>
+      </button>
+
+
     </ion-item>
-    
-      
-    </form>
-
-  </ion-footer>
 
 
-  
+  </form>
 
- 
+</ion-footer>

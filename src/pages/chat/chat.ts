@@ -26,6 +26,7 @@ export class ChatPage {
   public email: any;
   public date: any = new Date();
   public gameid: any;
+  public avatar: any;
 
   public pagename: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private view: ViewController, private fb: FormBuilder, private partida: PartidaProvider) {
