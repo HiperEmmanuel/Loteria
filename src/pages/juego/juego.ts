@@ -77,6 +77,8 @@ export class JuegoPage {
   public blastWinner: any;
   public fullWinner: any;
   public cartas:any;
+  public guestGame: any;
+
   constructor(private tts: TextToSpeech,private alertCtrl: AlertController, public navCtrl: NavController,public partidaService: PartidaProvider, public navParams: NavParams, private modal: ModalController, private tableService: TableProvider, public afDB: AngularFireDatabase,private animationService: AnimationService,private perfilService: PerfilProvider) {
     this.animator = animationService.builder();
     this.partidaService.getCarta().then(zz=>{
@@ -235,20 +237,12 @@ export class JuegoPage {
     modalChat.present();
   }
   ngOnDestroy(): void {
-    //this.showCard.unsubscribe('games');
-    this.gettingrooms.unsubscribe();
     this.partidaService.leaveGame(this.user);
-
   }
 
   stopObs(): void {
     if(this.subControl == true){
       this.sub.unsubscribe();
-      this.subControl = false;
-      this.gettingrooms.unsubscribe();
-    }
-    if(this.showClientControl == true && this.user.email != this.game.owner){
-      this.showClientControl = false;
     }
   }
 
@@ -268,7 +262,7 @@ export class JuegoPage {
 
     let alert = this.alertCtrl.create({
       title: 'PARTIDA FINALIZADA',
-      message: 'El juego a terminado:<br/> <br/>Chorro:  '+ (this.game.control.wins.blast) +'<br/>Cuatro Esquinas:  '+ (this.game.control.wins.quarter) +'<br/>Centrito:  '+ (this.game.control.wins.center) +'<br/>Llenas:  '+ (this.game.control.wins.full) +'',
+      message: 'El juego a terminado:<br/> <br/>Chorro:  '+ (this.blastWinner.player) +'<br/>Cuatro Esquinas:  '+ (this.game.control.wins.quarter) +'<br/>Centrito:  '+ (this.game.control.wins.center) +'<br/>Llenas:  '+ (this.game.control.wins.full) +'',
       buttons: [
         {
           text: 'Salir Sala',
@@ -307,17 +301,17 @@ export class JuegoPage {
     let eraunamamada = true;
     this.sub = Observable.interval(1000*this.intervalito).subscribe((val) => {
       this.putos=this.game.random[this.index];      
-
+      if(this.index < 53){
       this.tts.speak(
        {text:this.cartas[this.putos].name,
        locale:'es-MX'
       });
-
+    }
     this.index ++;  
-
+   
       this.partidaService.getGame(this.game_id).then( aa => {
 
-        if (eraunamamada || this.user.email != this.game.owner){
+        if (eraunamamada){
           eraunamamada = false;
           this.game = aa;
         }
@@ -376,6 +370,7 @@ export class JuegoPage {
           });
           this.modal2();
           this.game.status = "F";
+          console.log('partida terminada');
           this.stopObs();
         }
         
@@ -464,14 +459,68 @@ export class JuegoPage {
         ///////////////////////////////////////////////
         }else if(this.user.email != this.game.owner && this.game.status == "I"){
           this.waitGame.unsubscribe();
+          this.game = aa;
           if(this.indice<53){
             this.intervalito = 1;
             this.indice = this.game.currentCard;
-            //console.log(this.indice);
-            if (this.game.control.wins.full != ''){
+          }
+   
+          if(this.game.control.wins.blast != '' && !this.blastWinner){
+            console.log('Ganaron chorro');
+            this.blastWinner = this.game.control.wins.blast
+            this.perfilService.getPerfil((this.blastWinner),(result) => {
+              var avatar = result.Avatar;
+              var apodo = result.Apodo;
+              var data = {player: '', avatar: ''};
+              data.avatar = avatar;
+              data.player= apodo;
+              this.blastWinner=data;
+            });
+          }
+
+          if(this.game.control.wins.center != '' && !this.centerWinner){
+            console.log('Ganaron centro');
+            this.centerWinner = this.game.control.wins.center
+            this.perfilService.getPerfil((this.centerWinner),(result) => {
+              var avatar = result.Avatar;
+              var apodo = result.Apodo;
+              var data = {player: '', avatar: ''};
+              data.avatar = avatar;
+              data.player= apodo;
+              this.centerWinner=data;
+            });
+          }
+        
+          if(this.game.control.wins.quarter != '' && !this.quarterWinner){
+            console.log('Ganaron cuatro');
+            this.quarterWinner = this.game.control.wins.quarter
+            this.perfilService.getPerfil((this.quarterWinner),(result) => {
+              var avatar = result.Avatar;
+              var apodo = result.Apodo;
+              var data = {player: '', avatar: ''};
+              data.avatar = avatar;
+              data.player= apodo;
+              this.quarterWinner=data;
+            });
+          }
+
+
+          if(this.game.control.wins.full != '' && !this.fullWinner){
+            console.log('Ganaron full');
+            this.fullWinner = this.game.control.wins.full;
+            this.perfilService.getPerfil((this.fullWinner),(result) => {
+              var avatar = result.Avatar;
+              var apodo = result.Apodo;
+              var data = {player: '', avatar: ''};
+              data.avatar = avatar;
+              data.player= apodo;
+              this.fullWinner=data;
+            });
+          }
+          if (this.game.control.wins.full != '' && this.game.status == 'F'){
+              console.log('partida terminada');
               this.modal2();
               this.stopObs();
-            }
           }
         }
 
