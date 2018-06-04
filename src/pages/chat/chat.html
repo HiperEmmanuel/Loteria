@@ -24,8 +24,8 @@
 <ion-content #content padding id="content" style="background-color: rgba(255, 255, 255, 0.397);">
 <ion-card *ngFor="let message of messages" class="msnChat">
 <ion-card-header>
-  <img class="detalle" src="/assets/imgs/perfil/{{message.Avatar}}">
-   <p>  {{ message.Apodo }} a las {{ message.hora | date: 'HH:mm' }}</p>
+  <img class="perfilConsola" src="/assets/imgs/perfil/{{message.Avatar}}">
+   <p class="detalle">  {{ message.Apodo }} a las {{ message.hora | date: 'HH:mm' }}</p>
 </ion-card-header>
 <ion-card-content>
   {{ message.mensaje }}
