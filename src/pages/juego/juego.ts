@@ -243,6 +243,7 @@ export class JuegoPage {
   stopObs(): void {
     if(this.subControl == true){
       this.sub.unsubscribe();
+      this.gettingrooms.unsubscribe();
     }
   }
 
@@ -252,7 +253,7 @@ export class JuegoPage {
     this.navCtrl.setRoot(HomePage);
   }
   /////////////////////////////////////////juego.html
-  modal2(){
+  modal2(win){
     this.partidaService.getlastgame(this.owner).then( ab => {
       this.owner = ab;
       console.log(this.owner);
@@ -261,8 +262,8 @@ export class JuegoPage {
     });
 
     let alert = this.alertCtrl.create({
-      title: 'PARTIDA FINALIZADA',
-      message: 'El juego a terminado:<br/> <br/>Chorro:  '+ (this.blastWinner.player) +'<br/>Cuatro Esquinas:  '+ (this.game.control.wins.quarter) +'<br/>Centrito:  '+ (this.game.control.wins.center) +'<br/>Llenas:  '+ (this.game.control.wins.full) +'',
+      title: 'PARTIDA'+ this.owner.title +'FINALIZADA',
+      message: 'El juego a terminado: <p>Chorro:'+ (this.blastWinner.player)+'</p>' +'<p>Cuatro Esquinas:'+ (this.quarterWinner.player)+'</p>'+'<p>Centrito:'+ (this.centerWinner.player)+'</p>' +'<p>Llenas:'+ (win.player) +'</p>' ,
       buttons: [
         {
           text: 'Salir Sala',
@@ -288,7 +289,6 @@ export class JuegoPage {
   ///////////////////////////////////////////////juego.html
 
   iniciar(){
-    this.gettingrooms.unsubscribe();
     this.tts.speak(
       {text:'Se va y se corre',
       locale:'es-MX'
@@ -367,11 +367,13 @@ export class JuegoPage {
             data.avatar = avatar;
             data.player= apodo;
             this.fullWinner=data;
+            this.game.status = "F";
+            this.partidaService.update_card(this.game_id, this.game);
+            console.log('partida terminada');
+            this.stopObs();
+            this.modal2(this.fullWinner);
           });
-          this.modal2();
-          this.game.status = "F";
-          console.log('partida terminada');
-          this.stopObs();
+
         }
         
         if (this.game.control.wins.blast == ''){
@@ -517,9 +519,9 @@ export class JuegoPage {
               this.fullWinner=data;
             });
           }
-          if (this.game.control.wins.full != '' && this.game.status == 'F'){
+          if (this.game.control.wins.full != '' && this.game.status == "F"){
               console.log('partida terminada');
-              this.modal2();
+              this.modal2(this.fullWinner);
               this.stopObs();
           }
         }
