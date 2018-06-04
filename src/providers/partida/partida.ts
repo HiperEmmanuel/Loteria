@@ -459,7 +459,6 @@ export class PartidaProvider {
           if(controlgame = true){
             controlgame = false;
           let item = result.val();
-          console.log(item);
           // gg.id = id[0];
           resolve(item)
           }
