@@ -29,6 +29,8 @@ export class ChatPage {
   public gameid: any;
   public i:any;
   public Perfil:any;
+  public avatar: any;
+
   public pagename: any;
   public Apodo:any;
   public Avatar:any;
