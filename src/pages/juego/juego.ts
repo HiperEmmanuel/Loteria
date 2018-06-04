@@ -262,7 +262,7 @@ export class JuegoPage {
     });
 
     let alert = this.alertCtrl.create({
-      title: 'PARTIDA'+ this.owner.title +'FINALIZADA',
+      title: 'PARTIDA FINALIZADA',
       message: 'El juego a terminado: <p>Chorro:'+ (this.blastWinner.player)+'</p>' +'<p>Cuatro Esquinas:'+ (this.quarterWinner.player)+'</p>'+'<p>Centrito:'+ (this.centerWinner.player)+'</p>' +'<p>Llenas:'+ (win.player) +'</p>' ,
       buttons: [
         {
