@@ -5,7 +5,7 @@
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only clear color="dark">
-        <ion-icon name="logo-usd"></ion-icon> 300
+        <ion-icon name="logo-usd"></ion-icon> 50
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -48,7 +48,7 @@
           <ion-item>
             <ion-label>Tiempo de espera de carta</ion-label>
             <ion-select [(ngModel)]="cardtimer">
-              <ion-option value="1">1 segundo</ion-option>
+              <!--ion-option value="1">1 segundo</ion-option-->
               <ion-option value="2">2 segundos</ion-option>
               <ion-option value="3">3 segundos</ion-option>
               <ion-option value="5">5 segundos</ion-option>
@@ -62,22 +62,22 @@
               </ion-select>
             </ion-item>
           <ion-item>
-            <ion-label>Llenas - $ {{fullvalue}}</ion-label>
+            <ion-label>Llenas: $ {{fullvalue}}</ion-label>
             <ion-checkbox color="dark" checked="true" disabled="true" [(ngModel)]="full"></ion-checkbox>
 
           </ion-item>
           <ion-item>
-            <ion-label>Chorro - $ {{blastvalue}}</ion-label>
-            <ion-checkbox color="dark" [(ngModel)]="blast" (ionChange)="updatePorc('blast')"></ion-checkbox>
+            <ion-label>Chorro: $ {{blastvalue}}</ion-label>
+            <ion-checkbox color="dark" [(ngModel)]="blast" checked="true" (ionChange)="updatePorc('blast')"></ion-checkbox>
           </ion-item>
           <ion-item>
-            <ion-label>4 esquinas - $ {{quartersvalue}}</ion-label>
-            <ion-checkbox color="dark" [(ngModel)]="quarters" (ionChange)="updatePorc('quarters')"></ion-checkbox>
+            <ion-label>4 esquinas: $ {{quartersvalue}}</ion-label>
+            <ion-checkbox color="dark" [(ngModel)]="quarters" checked="true" (ionChange)="updatePorc('quarters')"></ion-checkbox>
 
           </ion-item>
           <ion-item>
-            <ion-label>Centrito - $ {{middlevalue}}</ion-label>
-            <ion-checkbox color="dark" [(ngModel)]="middle" (ionChange)="updatePorc('middle')"></ion-checkbox>
+            <ion-label>Centrito: $ {{middlevalue}}</ion-label>
+            <ion-checkbox color="dark" [(ngModel)]="middle" checked="true" (ionChange)="updatePorc('middle')"></ion-checkbox>
 
           </ion-item>
           <button ion-button color="secondary" float-right (click)="entrarJuego()">Comenzar</button>

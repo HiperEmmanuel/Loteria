@@ -38,8 +38,8 @@ export class ConfigPage {
   silenciar(){
     console.log("Mutear");
     this.nativeAudio.setVolumeForComplexAsset('rolilla',this.volumen).then(() => {
-      if(this.volumen==1)this.volumen=0 
-      else this.volumen=1
+      if(this.volumen==0.4)this.volumen=0 
+      else this.volumen=0.4
     });
   }
 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.hipersoft.loteria" version="0.3.49" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.hipersoft.loteria" version="0.3.55" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>La Lotería</name>
     <description>Una aplicación para jugar lotería mexicana.</description>
     <author email="softwarehiper@gmail.com" href="http://fim.uas.edu.mx/">4-02</author>
