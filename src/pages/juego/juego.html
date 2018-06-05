@@ -52,9 +52,9 @@
 
           <!--<img *ngIf="initCard == true || indice == 53" class="baraja-diseño" src="assets/cards/0.png">-->
           <div #myElement>
-            <img *ngIf="initCard == false && indice < 53" class="baraja-diseño" src="assets/gif/{{this.putos}}.gif">
+            <img *ngIf="initCard == false && index < 54" class="baraja-diseño" src="assets/gif/{{this.putos}}.gif">
           </div>
-          <button ion-button round class="estilo-boton" color="verde" (click)="iniciar();animateElem();" *ngIf="owner==email && game.status=='w' && initCard == true || indice == 53">
+          <button ion-button round class="estilo-boton" color="verde" (click)="initServer();animateElem();" *ngIf="owner==email && game.status=='w' && initCard == true && index == 0">
             <ion-icon class="icono-play" name="play"></ion-icon>
           </button>
 

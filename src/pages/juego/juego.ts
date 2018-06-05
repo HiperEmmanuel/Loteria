@@ -205,14 +205,12 @@ export class JuegoPage {
         let z=false;
         this.showClientControl = true;
         this.waitGame = this.afDB.list('/game/'+this.game_id).valueChanges().subscribe(game => {
-          //this.partidaService.getGame(this.game_id).then(response =>{
             if(game['6'] == "I"){
               if(z==false){
                 this.iniciar();
                 z=true;
               }
             }
-        //})
       });
       }
 
@@ -256,21 +254,17 @@ export class JuegoPage {
   modal2(win){
     this.partidaService.getlastgame(this.owner).then( ab => {
       this.owner = ab;
-      console.log(this.owner);
-
-
     });
 
     let alert = this.alertCtrl.create({
       title: 'PARTIDA FINALIZADA',
-      message: 'El juego a terminado: <p>Chorro:'+ (this.blastWinner.player)+'</p>' +'<p>Cuatro Esquinas:'+ (this.quarterWinner.player)+'</p>'+'<p>Centrito:'+ (this.centerWinner.player)+'</p>' +'<p>Llenas:'+ (win.player) +'</p>' ,
+      message: '<p><strong>El juego a terminado:</strong></p> <p*ngIf="settings.blast">Chorro:'+ (this.blastWinner.player)+'</p>' +'<p*ngIf="settings.quarters">Cuatro Esquinas:'+ (this.quarterWinner.player)+'</p>'+'<p*ngIf="settings.middle">Centrito:'+ (this.centerWinner.player)+'</p>' +'<p>Llenas:'+ (win) +'</p>' ,
       buttons: [
         {
           text: 'Salir Sala',
           role: 'cancel',
           handler: () => {
             this.navCtrl.push(HomePage);
-            //console.log(this.pp.getGame());
             this.salir();
             console.log('Cancel clicked');
           }
@@ -287,6 +281,14 @@ export class JuegoPage {
     alert.present();
   }
   ///////////////////////////////////////////////juego.html
+  initServer(){
+    this.partidaService.getGame(this.game_id).then( ab => {
+      this.game = ab;
+      this.game.status="I";
+      this.partidaService.updateGame(this.game);
+      setTimeout(this.iniciar(), 2000);
+    });
+  }
 
   iniciar(){
     this.tts.speak(
@@ -301,32 +303,25 @@ export class JuegoPage {
     let eraunamamada = true;
     this.sub = Observable.interval(1000*this.intervalito).subscribe((val) => {
       this.putos=this.game.random[this.index];      
-      if(this.index < 53){
+      if(this.index < 54){
       this.tts.speak(
        {text:this.cartas[this.putos].name,
        locale:'es-MX'
       });
+      this.index ++;  
     }
-    this.index ++;  
+    console.log(this.index);
    
       this.partidaService.getGame(this.game_id).then( aa => {
-
         if (eraunamamada){
           eraunamamada = false;
           this.game = aa;
         }
-
         if (this.user.email == this.game.owner) {
-          if (this.putoelkelolea){
-            this.game.currentCard = this.indice2;
-            this.game.status = "I";
+          /*if (this.putoelkelolea){
+            this.putoelkelolea = false;
             this.partidaService.update_card(this.game_id, this.game);
-            this.indice = this.game.currentCard;
-            if(this.indice<53){
-              this.indice2 ++;
-            }
-          }
-
+          }*/
         //funciona esto ya
 
         this.partidaService.get_request_check(this.game_id).then(gg => {
@@ -346,6 +341,7 @@ export class JuegoPage {
 
         /////////////////////////////////////////////7
         if (this.game.control.wins.full == ''){
+          console.log('esperando full');
           this.partidaService.get_request_full(this.game_id).then( gg => {
             let gf:any = gg;
             if (gf.length>0){
@@ -354,6 +350,7 @@ export class JuegoPage {
                 ff => {
                   let ag:any = ff;
                   this.game.control.wins.full = ag.player;
+                  this.partidaService.update_card(this.game_id, this.game);
                 }
               )
             }
@@ -370,8 +367,8 @@ export class JuegoPage {
             this.game.status = "F";
             this.partidaService.update_card(this.game_id, this.game);
             console.log('partida terminada');
+            this.modal2(this.fullWinner.player);
             this.stopObs();
-            this.modal2(this.fullWinner);
           });
 
         }
@@ -379,13 +376,13 @@ export class JuegoPage {
         if (this.game.control.wins.blast == ''){
           this.partidaService.get_request_blast(this.game_id).then( gg => {
             let gf:any = gg;
-            //console.log('esto es igualque arriba?',gf);
             if (gf.length>0){
               gf = gf[0];
               this.partidaService.get_room_by_id(gf.player_room).then(
                 ff => {
                   let ag:any = ff;
                 this.game.control.wins.blast = ag.player;
+                this.partidaService.update_card(this.game_id, this.game);
               }
             )}
           })
@@ -409,6 +406,7 @@ export class JuegoPage {
                 ff => {
                   let ag:any = ff;
                 this.game.control.wins.quarter = ag.player;
+                this.partidaService.update_card(this.game_id, this.game);
               }
             )}
           })
@@ -432,6 +430,7 @@ export class JuegoPage {
                 ff => {
                   let ag:any = ff;
                 this.game.control.wins.center = ag.player;
+                this.partidaService.update_card(this.game_id, this.game);
               }
             )}
           })
@@ -451,7 +450,7 @@ export class JuegoPage {
           //console.log(as);
           as.forEach(element => {
             this.tableService.getTables().then(response =>{
-              this.search_card(this.game.random[this.indice], this.tables[this.tb], element.player);
+              this.search_card(this.game.random[this.index], this.tables[this.tb], element.player);
             }).catch(err =>{
               console.error(err);
             })
@@ -459,17 +458,12 @@ export class JuegoPage {
           });
         })
         ///////////////////////////////////////////////
-        }else if(this.user.email != this.game.owner && this.game.status == "I"){
+        }else if(this.user.email != this.game.owner){
           this.waitGame.unsubscribe();
           this.game = aa;
-          if(this.indice<53){
-            this.intervalito = 1;
-            this.indice = this.game.currentCard;
-          }
    
           if(this.game.control.wins.blast != '' && !this.blastWinner){
-            console.log('Ganaron chorro');
-            this.blastWinner = this.game.control.wins.blast
+            this.blastWinner = this.game.control.wins.blast;
             this.perfilService.getPerfil((this.blastWinner),(result) => {
               var avatar = result.Avatar;
               var apodo = result.Apodo;
@@ -481,7 +475,6 @@ export class JuegoPage {
           }
 
           if(this.game.control.wins.center != '' && !this.centerWinner){
-            console.log('Ganaron centro');
             this.centerWinner = this.game.control.wins.center
             this.perfilService.getPerfil((this.centerWinner),(result) => {
               var avatar = result.Avatar;
@@ -494,7 +487,6 @@ export class JuegoPage {
           }
         
           if(this.game.control.wins.quarter != '' && !this.quarterWinner){
-            console.log('Ganaron cuatro');
             this.quarterWinner = this.game.control.wins.quarter
             this.perfilService.getPerfil((this.quarterWinner),(result) => {
               var avatar = result.Avatar;
@@ -506,9 +498,7 @@ export class JuegoPage {
             });
           }
 
-
-          if(this.game.control.wins.full != '' && !this.fullWinner){
-            console.log('Ganaron full');
+          if(this.game.control.wins.full != ''){
             this.fullWinner = this.game.control.wins.full;
             this.perfilService.getPerfil((this.fullWinner),(result) => {
               var avatar = result.Avatar;
@@ -517,12 +507,11 @@ export class JuegoPage {
               data.avatar = avatar;
               data.player= apodo;
               this.fullWinner=data;
+              if(this.game.status == "F"){
+                this.modal2(this.fullWinner.player);
+                this.stopObs();
+              }
             });
-          }
-          if (this.game.control.wins.full != '' && this.game.status == "F"){
-              console.log('partida terminada');
-              this.modal2(this.fullWinner);
-              this.stopObs();
           }
         }
 
@@ -538,8 +527,10 @@ export class JuegoPage {
           if (this.s_center)
           this.is_center(roomy)
          });
+      }).catch(err =>{
+        console.log(err);
       });
-     });
+    });
   }
 
 is_full(room){
@@ -593,19 +584,14 @@ is_kuatro(room){
       for (let i = 0; i < table[index].length; i++) {
         if (table[index][i] == carta) {
          let room;
-         //console.log("carta:", carta);
-         //console.log("otro:", table[index][i]);
-         //console.log("otro:", user);
          this.partidaService.get_my_room(user).then(xa => {
            room = xa;
-           //console.log(room);
            room.stats[index][i].showed = true;
            this.partidaService.update_stats(room);
           });
           break;
         }
       }
-
     }
   }
 
