@@ -142,10 +142,10 @@ page-juego {
 
 @media (max-width:340px){
     .estilo-boton{
-        top: -5%;
-        height: 100%;
-        width: 216%;
-        left: -35%;
+        top: -1.5rem;
+        height: 115%;
+        width: auto;
+        left: -42%;
     }
     .icono-play{
         width:100%;
@@ -161,7 +161,9 @@ page-juego {
         max-width: 220%;
         margin-left: -23%;
     }
-
+    [offset-1] {
+        margin-left: 13.33333%;
+    }
 }
 @media (min-width:340px){
     .grid-estilo{
@@ -192,6 +194,7 @@ page-juego {
         width:100%;
         font-size: 3.2em;
     }
+  
 }
 @media (min-width:420px){
     .grid-estilo{
@@ -215,6 +218,9 @@ page-juego {
         margin-left: 0%;
         top:15%;
     }
+    [offset-1] {
+        margin-left: 15.33333%;
+    }
 }
  @media (min-width:460px){
      .grid-estilo{
@@ -228,7 +234,7 @@ page-juego {
     }
     .estilo-boton{
         top: -5%;
-        height: 170%;
+        height: 240%;
         width: 200%;
     }
     .consola{
@@ -241,6 +247,7 @@ page-juego {
         max-width: 250%;
      }
 }
+
 @media (min-width:870px){
     .grid-estilo{
         width:  35%;
